@@ -4,6 +4,8 @@ import { SignUpDto } from '~/utils/models/auth/sign-up.dto';
 import { ApiResponse } from '~/utils/interfaces/api-response';
 import { getQueryParams } from '~/utils/query-params';
 import { FormData } from '~/utils/interfaces/form.data';
+import { plainToInstance } from 'class-transformer';
+import { UserDto } from '~/utils/models/user/user.dto';
 
 export class AuthService {
   async signIn(body: SignInDto): Promise<User> {
@@ -17,16 +19,22 @@ export class AuthService {
       }
     );
 
-    return result.data as User;
+    return plainToInstance(UserDto, result.data, {
+      excludeExtraneousValues: true,
+    });
   }
 
   async signUp(body: FormData): Promise<ApiResponse<User>> {
-    return $fetch('/api/auth', {
+    const result = await $fetch('/api/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(SignUpDto.create(body)),
+    });
+
+    return plainToInstance(UserDto, result.data, {
+      excludeExtraneousValues: true,
     });
   }
 }

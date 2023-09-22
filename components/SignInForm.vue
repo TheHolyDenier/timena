@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
 import BaseForm from '~/components/BaseForm.vue';
-import { api } from '~/plugins/di';
 import { SignInDto } from '~/utils/models/auth/sign-in.dto';
+import { useUser } from '~/stores/user.store';
 
 const inputDefinitions: InputDefinition[] = [
   { name: 'email', label: 'E-mail' },
@@ -10,7 +10,9 @@ const inputDefinitions: InputDefinition[] = [
   { name: 'stayLogged', label: 'Keep me logged', type: 'checkbox' },
 ];
 
-const signIn = async (signIn: SignInDto) => api.auth.signIn(signIn);
+const $user = useUser();
+
+const signIn = async (signIn: SignInDto) => $user.signIn(signIn);
 </script>
 
 <template>

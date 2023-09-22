@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUser } from '~/stores/user.store';
+import { storeToRefs } from 'pinia';
+
+const $user = useUser();
+const { me } = storeToRefs($user);
+
+$user.recoverUser();
+</script>
 
 <template>
   <div class="navbar">
@@ -10,7 +18,11 @@
     </div>
 
     <div class="navbar__navigation">
-      <RouterLink to="sign" class="navbar__navigation-item">
+      <RouterLink v-if="!!me" to="#" class="navbar__navigation-item">
+        <BaseIcon class="navbar__login" icon="person" />
+        {{ me?.username }}
+      </RouterLink>
+      <RouterLink v-else to="sign" class="navbar__navigation-item">
         <BaseIcon class="navbar__login" icon="person" />
         Login
       </RouterLink>

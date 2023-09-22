@@ -3,6 +3,10 @@ import SignUpForm from '~/components/SignUpForm.vue';
 import SignInForm from '~/components/SignInForm.vue';
 import BaseButton from '~/components/BaseButton.vue';
 
+definePageMeta({
+  middleware: ['unsigned'],
+});
+
 const isSingingUp = ref(true);
 </script>
 
