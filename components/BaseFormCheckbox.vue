@@ -19,5 +19,6 @@ defineProps({
   display: flex;
   align-items: center;
   gap: 0.5em;
+  margin: 0;
 }
 </style>

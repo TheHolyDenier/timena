@@ -13,6 +13,7 @@ defineProps({ compact: { type: Boolean } });
   margin: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.3em;
   padding-block: 5px;
   padding-inline: 10px;

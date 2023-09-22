@@ -24,8 +24,13 @@ defineProps({
 
 <style scoped lang="scss">
 .input {
+  margin: 0;
   &__element {
     margin-bottom: 0;
+    height: 50px;
+    padding: 0.3em;
+    display: flex;
+    align-items: center;
   }
 
   &__container {

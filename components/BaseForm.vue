@@ -50,7 +50,7 @@ defineProps({
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
 
   &__child {
     flex: 1;
