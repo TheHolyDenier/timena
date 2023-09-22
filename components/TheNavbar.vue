@@ -1,21 +1,19 @@
-<script setup lang="ts">
-import BaseIcon from '~/components/BaseIcon.vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="navbar">
     <div class="navbar__navigation">
-      <div class="navbar__navigation-item">
+      <RouterLink to="/" class="navbar__navigation-item">
         <BaseIcon icon="home" />
         Inicio
-      </div>
+      </RouterLink>
     </div>
 
     <div class="navbar__navigation">
-      <div class="navbar__navigation-item">
+      <RouterLink to="sign" class="navbar__navigation-item">
         <BaseIcon class="navbar__login" icon="person" />
         Login
-      </div>
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -25,10 +23,8 @@ import BaseIcon from '~/components/BaseIcon.vue';
 
 .navbar {
   width: 100%;
-  background: $primary;
+  background: $primary-500;
   padding: 0.5em;
-
-  color: white;
 
   display: flex;
   justify-content: space-between;
@@ -38,11 +34,21 @@ import BaseIcon from '~/components/BaseIcon.vue';
     display: flex;
     align-items: center;
     gap: 0.3em;
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      color: $secondary-500;
+
+      .navbar__login {
+        background: $secondary-500;
+      }
+    }
   }
 
   &__login {
     background: white;
-    color: $primary;
+    color: $primary-500;
     border-radius: 50%;
   }
 }
