@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseFormInput from '~/components/BaseFormInput.vue';
 import { PropType } from '@vue/runtime-core';
 import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
 
@@ -19,27 +18,28 @@ defineProps({
       :key="inputDefinition.name"
     >
       <BaseFormCheckbox
-        class="form__child"
         v-if="inputDefinition.type === 'checkbox'"
         :label="inputDefinition.label"
         :name="inputDefinition.name"
+        class="form__child"
       />
 
       <BaseFormInputPassword
-        class="form__child"
         v-else-if="inputDefinition.type === 'password'"
         :label="inputDefinition.label"
         :name="inputDefinition.name"
+        class="form__child"
       />
 
       <BaseFormInput
-        class="form__child"
         v-else
         :label="inputDefinition.label"
         :name="inputDefinition.name"
         :type="inputDefinition.type"
+        class="form__child"
       />
     </template>
+
     <div>
       <BaseButton :compact="compact">Enviar</BaseButton>
     </div>
