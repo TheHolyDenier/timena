@@ -1,0 +1,7 @@
+@import '@picocss/pico/scss/pico.classless';
+
+$primary: #e53935;
+
+:root {
+  --primary: $primary;
+}
