@@ -36,6 +36,7 @@
     "@types/lodash": "^4.14.198",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13"
   }

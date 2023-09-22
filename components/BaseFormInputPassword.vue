@@ -13,19 +13,19 @@ defineProps({
   label: { type: String },
 });
 
-const displayPassword = ref(false);
+const hidePassword = ref(true);
 </script>
 
 <template>
   <BaseFormInput
     :label="label"
     :name="name"
-    :type="displayPassword ? 'password' : 'text'"
+    :type="hidePassword ? 'password' : 'text'"
     @on:update="$emit('on:update', $event)"
   >
     <template #trailing-icon>
-      <BaseButton compact @click="displayPassword = !displayPassword">
-        <BaseIcon :icon="displayPassword ? 'visibility' : 'visibility_off'" />
+      <BaseButton compact @click="hidePassword = !hidePassword">
+        <BaseIcon :icon="hidePassword ? 'visibility' : 'visibility_off'" />
       </BaseButton>
     </template>
   </BaseFormInput>

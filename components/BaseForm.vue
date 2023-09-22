@@ -7,6 +7,8 @@ import BaseFormInput from '~/components/BaseFormInput.vue';
 import BaseButton from '~/components/BaseButton.vue';
 import { FormData } from '~/utils/interfaces/form.data';
 
+defineEmits<{ (e: 'on:send', value: FormData) }>();
+
 defineProps({
   inputDefinitions: {
     type: Array as PropType<InputDefinition[]>,
@@ -51,7 +53,9 @@ const formData = ref<FormData>({});
     </template>
 
     <div>
-      <BaseButton :compact="compact">Enviar</BaseButton>
+      <BaseButton :compact="compact" @click="$emit('on:send', formData)">
+        Enviar
+      </BaseButton>
     </div>
   </form>
 </template>
