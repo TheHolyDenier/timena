@@ -1,9 +1,22 @@
 <script setup lang="ts">
-defineProps({ compact: { type: Boolean }, outline: { type: Boolean } });
+defineProps({
+  compact: { type: Boolean },
+  outline: { type: Boolean },
+  to: { type: String },
+});
 </script>
 
 <template>
-  <button class="button" :class="{ 'button--compact': compact, outline }">
+  <RouterLink v-if="to" :to="to" class="button button--link">
+    <button class="button" :class="{ 'button--compact': compact, outline }">
+      <slot></slot>
+    </button>
+  </RouterLink>
+  <button
+    v-else
+    class="button"
+    :class="{ 'button--compact': compact, outline }"
+  >
     <slot></slot>
   </button>
 </template>
@@ -24,6 +37,10 @@ defineProps({ compact: { type: Boolean }, outline: { type: Boolean } });
 
   &--compact {
     width: auto;
+  }
+
+  &--link {
+    text-decoration: none;
   }
 }
 </style>

@@ -9,15 +9,16 @@ import { FormData } from '~/utils/interfaces/form.data';
 
 defineEmits<{ (e: 'on:send', value: FormData) }>();
 
-defineProps({
+const props = defineProps({
   inputDefinitions: {
     type: Array as PropType<InputDefinition[]>,
     default: () => [],
   },
   compact: { type: Boolean },
+  model: { type: Object as PropType<FormData> },
 });
 
-const formData = ref<FormData>({});
+const formData = ref<FormData>(props.model ? { ...props.model } : {});
 </script>
 
 <template>
@@ -30,6 +31,7 @@ const formData = ref<FormData>({});
         v-if="inputDefinition.type === 'checkbox'"
         :label="inputDefinition.label"
         :name="inputDefinition.name"
+        :value="formData[inputDefinition.name]"
         class="form__child"
         @on:update="formData[inputDefinition.name] = $event"
       />
@@ -38,6 +40,7 @@ const formData = ref<FormData>({});
         v-else-if="inputDefinition.type === 'password'"
         :label="inputDefinition.label"
         :name="inputDefinition.name"
+        :value="formData[inputDefinition.name]"
         class="form__child"
         @on:update="formData[inputDefinition.name] = $event"
       />
@@ -47,6 +50,7 @@ const formData = ref<FormData>({});
         :label="inputDefinition.label"
         :name="inputDefinition.name"
         :type="inputDefinition.type"
+        :value="formData[inputDefinition.name]"
         class="form__child"
         @on:update="formData[inputDefinition.name] = $event"
       />

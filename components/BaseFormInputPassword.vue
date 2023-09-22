@@ -11,6 +11,7 @@ defineEmits<{
 defineProps({
   name: { type: String, required: true },
   label: { type: String },
+  value: { type: String },
 });
 
 const hidePassword = ref(true);
@@ -21,6 +22,7 @@ const hidePassword = ref(true);
     :label="label"
     :name="name"
     :type="hidePassword ? 'password' : 'text'"
+    :value="value"
     @on:update="$emit('on:update', $event)"
   >
     <template #trailing-icon>

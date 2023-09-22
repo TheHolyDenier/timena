@@ -1,1 +1,6 @@
-export type IconType = 'person' | 'home' | 'visibility' | 'visibility_off';
+export type IconType =
+  | 'person'
+  | 'home'
+  | 'visibility'
+  | 'visibility_off'
+  | 'logout';

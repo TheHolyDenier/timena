@@ -2,7 +2,7 @@ import { User } from '.prisma/client';
 import { SignInDto } from '~/domain/auth/sign-in.dto';
 import { api } from '~/plugins/di';
 import { LocalStorageService } from '~/utils/services/local-storage.service';
-import { UpdateUserDto } from '~/domain/users/update-user.dto';
+import { UpdateUserDto } from '~/utils/model/user/update-user.dto';
 import { FormDataInterface } from '~/interfaces/form-data.interface';
 import { UserDto } from '~/utils/models/user/user.dto';
 import { plainToInstance } from 'class-transformer';
@@ -21,6 +21,10 @@ export const useUser = defineStore('user', () => {
       : null;
 
     return me.value;
+  };
+
+  const token = () => {
+    return me.value?.accessToken;
   };
 
   const getMe = async (): Promise<User> => {
@@ -54,5 +58,5 @@ export const useUser = defineStore('user', () => {
     LocalStorageService.set(localKey, JSON.stringify(me.value));
   };
 
-  return { me, getMe, signIn, signUp, logout, update, recoverUser };
+  return { me, getMe, signIn, signUp, logout, update, recoverUser, token };
 });

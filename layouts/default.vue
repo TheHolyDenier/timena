@@ -33,8 +33,8 @@
   }
 
   &__body-slot {
-    padding: 1em;
     overflow-y: auto;
+    height: 100%;
   }
 }
 </style>

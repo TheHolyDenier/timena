@@ -18,13 +18,22 @@ $user.recoverUser();
     </div>
 
     <div class="navbar__navigation">
-      <RouterLink v-if="!!me" to="#" class="navbar__navigation-item">
-        <BaseIcon class="navbar__login" icon="person" />
-        {{ me?.username }}
-      </RouterLink>
-      <RouterLink v-else to="sign" class="navbar__navigation-item">
+      <RouterLink
+        v-if="!me"
+        to="sign"
+        class="navbar__navigation-item navbar__navigation-item--link"
+      >
         <BaseIcon class="navbar__login" icon="person" />
         Login
+      </RouterLink>
+    </div>
+    <div v-if="me" class="navbar__navigation">
+      <RouterLink
+        class="navbar__navigation-item navbar__navigation-item--link"
+        to="sign"
+        @click="$user.logout()"
+      >
+        <BaseIcon icon="logout" /> Logout
       </RouterLink>
     </div>
   </div>
@@ -41,6 +50,13 @@ $user.recoverUser();
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1em;
+
+  &__navigation {
+    &:first-child {
+      flex: 2;
+    }
+  }
 
   &__navigation-item {
     display: flex;
@@ -49,19 +65,11 @@ $user.recoverUser();
     color: white;
     text-decoration: none;
 
-    &:hover {
-      color: $secondary-500;
-
-      .navbar__login {
-        background: $secondary-500;
+    &--link {
+      &:hover {
+        color: $secondary-500;
       }
     }
-  }
-
-  &__login {
-    background: white;
-    color: $primary-500;
-    border-radius: 50%;
   }
 }
 </style>
