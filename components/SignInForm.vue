@@ -11,7 +11,6 @@ const inputDefinitions: InputDefinition[] = [
 <template>
   <div>
     <h1>Sign-in</h1>
-    <p> Already have an account? </p>
     <BaseForm :input-definitions="inputDefinitions" />
   </div>
 </template>
