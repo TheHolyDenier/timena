@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
+import BaseForm from "~/components/BaseForm.vue";
 
 const inputDefinitions: InputDefinition[] = [
   { name: 'email', label: 'E-mail' },

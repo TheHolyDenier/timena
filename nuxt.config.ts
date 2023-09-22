@@ -13,13 +13,28 @@ export default defineNuxtConfig({
     },
   },
 
-  // vite: {
-  //   css: {
-  //     preprocessorOptions: {
-  //       scss: {
-  //         additionalData: '@use "@/assets/scss/_vars.scss" as *;',
-  //       },
-  //     },
-  //   },
-  // },
+  nitro: {
+    esbuild: {
+      options: {
+        tsconfigRaw: {
+          compilerOptions: {
+            experimentalDecorators: true,
+          },
+        },
+      },
+    },
+  },
+
+  vite: {
+    esbuild: {
+      tsconfigRaw: {},
+    },
+    //   css: {
+    //     preprocessorOptions: {
+    //       scss: {
+    //         additionalData: '@use "@/assets/scss/_vars.scss" as *;',
+    //       },
+    //     },
+    //   },
+  },
 });

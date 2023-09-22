@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { PropType } from '@vue/runtime-core';
+import { PropType, ref } from '@vue/runtime-core';
 import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
+import BaseFormCheckbox from '~/components/BaseFormCheckbox.vue';
+import BaseFormInputPassword from '~/components/BaseFormInputPassword.vue';
+import BaseFormInput from '~/components/BaseFormInput.vue';
+import BaseButton from '~/components/BaseButton.vue';
+import { FormData } from '~/utils/interfaces/form.data';
 
 defineProps({
   inputDefinitions: {
@@ -9,6 +14,8 @@ defineProps({
   },
   compact: { type: Boolean },
 });
+
+const formData = ref<FormData>({});
 </script>
 
 <template>
@@ -22,6 +29,7 @@ defineProps({
         :label="inputDefinition.label"
         :name="inputDefinition.name"
         class="form__child"
+        @on:update="formData[inputDefinition.name] = $event"
       />
 
       <BaseFormInputPassword
@@ -29,6 +37,7 @@ defineProps({
         :label="inputDefinition.label"
         :name="inputDefinition.name"
         class="form__child"
+        @on:update="formData[inputDefinition.name] = $event"
       />
 
       <BaseFormInput
@@ -37,6 +46,7 @@ defineProps({
         :name="inputDefinition.name"
         :type="inputDefinition.type"
         class="form__child"
+        @on:update="formData[inputDefinition.name] = $event"
       />
     </template>
 

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import SignUpForm from '~/components/SignUpForm.vue';
+import SignInForm from '~/components/SignInForm.vue';
+
 const isSingingUp = ref(true);
 </script>
 
