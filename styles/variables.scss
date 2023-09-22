@@ -1,0 +1,48 @@
+// https://www.tutorialrepublic.com/html-reference/html-color-picker.php
+$primary: #e63946;
+$primary-dark: #b82e39;
+$secondary: #a8dadc;
+$secondary-dark: #86aeb0;
+$blue: #1d3557;
+$blue-dark: #172a46;
+$blue-light: #457b9d;
+$green: #f1faee;
+$green-light: #fdfefd;
+
+$phoneWidth: 650px;
+
+@font-face {
+  font-family: 'VinaSans';
+  src: url('public/fonts/VinaSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url('public/fonts/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Zeyada';
+  src: url('public/fonts/Zeyada-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+$textFont: 'OpenSans', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI',
+roboto, oxygen, ubuntu, cantarell, 'Fira Sans', 'Droid Sans',
+'Helvetica Neue', sans-serif;
+
+$titleFont: 'VinaSans', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI',
+roboto, oxygen, ubuntu, cantarell, 'Fira Sans', 'Droid Sans',
+'Helvetica Neue', sans-serif;
+
+$accentFont: 'Zeyada', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI',
+roboto, oxygen, ubuntu, cantarell, 'Fira Sans', 'Droid Sans',
+'Helvetica Neue', sans-serif;

@@ -4,7 +4,8 @@
   "emitDecoratorMetadata": true,
   "experimentalDecorators": true,
   "compilerOptions": {
-    "strictPropertyInitialization": false
-  },
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true  },
   "target": "ES5"
 }
