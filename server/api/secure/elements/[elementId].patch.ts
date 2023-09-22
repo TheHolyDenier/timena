@@ -1,4 +1,4 @@
-import { defineEventHandler, H3Event, readBody } from 'h3';
+import { defineEventHandler, H3Event, readBody, getRouterParam } from 'h3';
 import { Element } from '@prisma/client';
 import { ApiResponse } from '~/interfaces/api-response';
 import { getStatusCode, StatusMessageEnum } from '~/enums/status-message.enum';
@@ -12,6 +12,9 @@ export default defineEventHandler(
     await ProjectManager.getParamAndFind(event);
 
     const elementId = getRouterParam(event, 'elementId');
+
+    if (!elementId) throw notFoundError();
+
     const element = await ElementsManager.findOne(
       event.context.user,
       elementId

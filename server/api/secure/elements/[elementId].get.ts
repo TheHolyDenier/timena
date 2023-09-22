@@ -1,4 +1,4 @@
-import { defineEventHandler, H3Event } from 'h3';
+import { defineEventHandler, H3Event, getRouterParam } from 'h3';
 import { Element } from '@prisma/client';
 import { ApiResponse } from '~/interfaces/api-response';
 import { getStatusCode, StatusMessageEnum } from '~/enums/status-message.enum';
@@ -17,7 +17,7 @@ export default defineEventHandler(
     return {
       statusCode: getStatusCode(StatusMessageEnum.OK),
       statusMessage: StatusMessageEnum.OK,
-      data: element
+      data: element,
     };
   }
 );

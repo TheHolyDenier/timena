@@ -1,10 +1,8 @@
-import { Expose, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 
 export class SignInDto {
-  @Expose()
   email: string;
 
-  @Expose()
   password: string;
 
   static create(data: any): SignInDto {

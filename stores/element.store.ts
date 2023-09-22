@@ -1,6 +1,6 @@
 import { FormDataInterface } from '~/interfaces/form-data.interface';
 import { api } from '~/plugins/di';
-import { ElementDto } from '~/domain/elements/element.dto';
+import { ElementDto } from '~/models/elements/element.dto';
 
 export const useElement = defineStore('element', () => {
   const needsRefresh = ref<number>(Date.now());
@@ -13,7 +13,7 @@ export const useElement = defineStore('element', () => {
     loading.value = true;
     const element = await api.element.create(campaignId, {
       ...body,
-      campaignId
+      campaignId,
     });
     loading.value = false;
     refresh();
@@ -70,6 +70,6 @@ export const useElement = defineStore('element', () => {
     remove,
     selectedElement,
     clearSelected,
-    clearList
+    clearList,
   };
 });

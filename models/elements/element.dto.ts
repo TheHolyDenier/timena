@@ -1,7 +1,7 @@
 import { Expose, plainToInstance, Transform } from 'class-transformer';
-import { BaseDto } from '~/domain/base.dto';
+import { BaseDto } from '~/models/base.dto';
 import { IconType } from '~/types/icon.type';
-import { CampaignDto } from '~/domain/campaigns/campaign.dto';
+import { ProjectDto } from '~/models/projects/project.dto';
 
 export class ElementDto extends BaseDto {
   @Expose() name?: string;
@@ -11,8 +11,8 @@ export class ElementDto extends BaseDto {
   @Expose() exists?: boolean;
   @Expose() type: IconType;
 
-  @Transform(({ value }) => plainToInstance(CampaignDto, value))
-  campaign?: CampaignDto;
+  @Transform(({ value }) => plainToInstance(ProjectDto, value))
+  project?: ProjectDto;
 
-  campaignId: string;
+  projectId: string;
 }

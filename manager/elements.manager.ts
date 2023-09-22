@@ -7,10 +7,7 @@ export class ElementsManager {
       where: {
         id,
         project: {
-          OR: [
-            { createdById: { equals: user.id } },
-            { contributors: { some: { id: user.id } } },
-          ],
+          OR: [{ createdById: { equals: user.id } }],
         },
       },
       include: {

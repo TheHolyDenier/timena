@@ -1,7 +1,7 @@
 import { useBaseService } from '~/services/base.service';
-import { ElementDto } from '~/domain/elements/element.dto';
-import { CreateElementDto } from '~/domain/elements/create-element.dto';
-import { UpdateElementDto } from '~/domain/elements/update-element.dto';
+import { ElementDto } from '~/models/elements/element.dto';
+import { CreateElementDto } from '~/models/elements/create-element.dto';
+import { UpdateElementDto } from '~/models/elements/update-element.dto';
 import { FormDataInterface } from '~/interfaces/form-data.interface';
 
 export const useElementService = () => {
@@ -22,6 +22,6 @@ export const useElementService = () => {
       $base.update!(baseUrl({ id }), body),
     get: async (campaignId: string) => $base.get(baseUrl({ campaignId })),
     getOne: async (id: string) => $base.getOne(baseUrl({ id })),
-    remove: async (id: string) => $base.remove(baseUrl({ id }))
+    remove: async (id: string) => $base.remove(baseUrl({ id })),
   };
 };

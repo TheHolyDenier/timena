@@ -1,48 +1,47 @@
 import { RouteLocationRaw } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { NavigationInterface } from '~/interfaces/navigation.interface';
-import { useCampaign } from '~/stores/campaign.store';
+import { useProject } from '~/stores/project.store';
 import { useElement } from '~/stores/element.store';
 
 export const useBreadcrumb = defineStore('breadcrumb', () => {
-  const { selectedCampaign } = storeToRefs(useCampaign());
+  const { selectedProject } = storeToRefs(useProject());
   const { selectedElement } = storeToRefs(useElement());
 
   const navigation = computed<NavigationInterface[]>(() => [
     {
       name: 'index',
       icon: 'wood-cabin',
-      getTo: () => ({ name: 'index' })
+      getTo: () => ({ name: 'index' }),
     },
     {
-      name: 'campaigns-campaignId',
+      name: 'projects-projectId',
       label:
-        selectedCampaign.value?.title || selectedElement.value?.campaign?.title,
+        selectedProject.value?.title || selectedElement.value?.project?.title,
       getTo:
-        selectedCampaign.value || selectedElement.value
+        selectedProject.value || selectedElement.value
           ? (): RouteLocationRaw => ({
-              name: 'campaigns-campaignId',
+              name: 'projects-projectId',
               params: {
-                campaignId:
-                  selectedCampaign.value?.id ||
-                  selectedElement.value?.campaignId
-              }
+                projectId:
+                  selectedProject.value?.id || selectedElement.value?.projectId,
+              },
             })
-          : undefined
+          : undefined,
     },
     {
-      name: 'campaigns-campaignId-elements-elementId',
+      name: 'projects-projectId-elements-elementId',
       label: selectedElement.value?.name,
       getTo: selectedElement.value
         ? (): RouteLocationRaw => ({
-            name: 'campaigns-campaignId-elements-elementId',
+            name: 'projects-projectId-elements-elementId',
             params: {
-              campaignId: selectedElement.value!.campaignId,
-              elementId: selectedElement.value!.name
-            }
+              projectId: selectedElement.value!.projectId,
+              elementId: selectedElement.value!.name,
+            },
           })
-        : undefined
-    }
+        : undefined,
+    },
   ]);
 
   return { navigation };

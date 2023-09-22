@@ -1,4 +1,4 @@
-import { defineEventHandler, H3Event } from 'h3';
+import { defineEventHandler, H3Event, getRouterParam } from 'h3';
 import { ApiResponse } from '~/interfaces/api-response';
 import { getStatusCode, StatusMessageEnum } from '~/enums/status-message.enum';
 import { notFoundError } from '~/errors/not-found.error';
@@ -19,7 +19,7 @@ export default defineEventHandler(
     return {
       statusCode: getStatusCode(StatusMessageEnum.OK),
       statusMessage: StatusMessageEnum.OK,
-      data: null
+      data: null,
     };
   }
 );

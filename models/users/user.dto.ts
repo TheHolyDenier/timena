@@ -1,4 +1,4 @@
-import { CampaignDto } from '~/domain/campaigns/campaign.dto';
+import { ProjectDto } from '~/models/projects/project.dto';
 
 export class UserDto {
   id: string;
@@ -11,8 +11,7 @@ export class UserDto {
   createdAt: Date;
   updatedAt: Date;
 
-  campaigns?: CampaignDto[];
-  // PlayerOnCampaign?: PlayerOnCampaign[];
+  projects?: ProjectDto[];
 
   constructor(data: Partial<UserDto>) {
     if (data) Object.assign(this, data);

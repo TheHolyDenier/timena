@@ -1,5 +1,5 @@
 import { Project, User } from '@prisma/client';
-import { H3Event } from 'h3';
+import { H3Event, getRouterParam } from 'h3';
 import { prisma } from '~/server/api';
 import { notFoundError } from '~/errors/not-found.error';
 
@@ -21,7 +21,7 @@ export class ProjectManager {
         id,
         OR: [
           { createdById: { equals: user.id } },
-          { players: { some: { id: user.id } } },
+          { projectOnUser: { some: { userId: user.id } } },
         ],
       },
     });
@@ -32,7 +32,7 @@ export class ProjectManager {
       where: {
         OR: [
           { createdById: { equals: user.id } },
-          { players: { some: { id: user.id } } },
+          { projectOnUser: { some: { userId: user.id } } },
         ],
       },
       orderBy: [{ isFavorite: 'desc' }, { title: 'asc' }],

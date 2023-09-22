@@ -21,6 +21,8 @@ model User {
   createdAt    DateTime  @default(now()) @map(name: "created_at")
   updatedAt    DateTime  @updatedAt @map(name: "updated_at")
 
+  projectOnUser ProjectOnUser[] @relation("user")
+
   @@map(name: "users")
 }
 
@@ -35,10 +37,27 @@ model Project {
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
 
-  elements Element[]
-  events   Event[]
+  elements      Element[]
+  events        Event[]
+  projectOnUser ProjectOnUser[] @relation("project")
 
   @@map(name: "projects")
+}
+
+model ProjectOnUser {
+  id String @id @default(cuid()) @map("_id")
+
+  createdById String
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+
+  user   User   @relation(name: "user", fields: [userId], references: [id])
+  userId String
+
+  project   Project @relation(name: "project", fields: [projectId], references: [id])
+  projectId String
+
+  @@map(name: "project-on-user")
 }
 
 model Element {
@@ -58,7 +77,7 @@ model Element {
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
 
-  elementsOnEvent          ElementOnEvent[]
+  elementsOnEvent           ElementOnEvent[]
   mainElementOnElement      ElementOnElement[] @relation("element")
   relatesToElementOnElement ElementOnElement[] @relation("relatesToElement")
 
@@ -73,7 +92,7 @@ model Event {
   cover       String?
 
   startDate String
-  endDate String?
+  endDate   String?
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
@@ -82,7 +101,8 @@ model Event {
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
 
-  elementOnEvent        ElementOnEvent[]
+  elementOnEvent ElementOnEvent[]
+
   @@map(name: "events")
 }
 

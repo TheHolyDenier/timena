@@ -1,8 +1,8 @@
 import { User } from '.prisma/client';
-import { SignInDto } from '~/domain/auth/sign-in.dto';
+import { SignInDto } from '~/models/auth/sign-in.dto';
 import { api } from '~/plugins/di';
 import { LocalStorageService } from '~/services/local-storage.service';
-import { UpdateUserDto } from '~/domain/users/update-user.dto';
+import { UpdateUserDto } from '~/models/users/update-user.dto';
 import { FormDataInterface } from '~/interfaces/form-data.interface';
 
 export const useUser = defineStore('user', () => {

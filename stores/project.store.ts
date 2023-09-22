@@ -1,59 +1,59 @@
 import { api } from '~/plugins/di';
 import { FormDataInterface } from '~/interfaces/form-data.interface';
-import { CampaignDto } from '~/domain/campaigns/campaign.dto';
+import { ProjectDto } from '~/models/projects/project.dto';
 
-export const useCampaign = defineStore('campaign', () => {
+export const useProject = defineStore('project', () => {
   const needsRefresh = ref<number>(Date.now());
   const loading = ref(false);
-  const campaigns = ref<CampaignDto[]>([]);
+  const projects = ref<ProjectDto[]>([]);
 
-  const selectedCampaign = ref<CampaignDto | null>(null);
+  const selectedProject = ref<ProjectDto | null>(null);
 
   const refresh = () => (needsRefresh.value = Date.now());
   const create = async (body: FormDataInterface) => {
     loading.value = true;
-    const campaign = await api.campaign.create(body);
+    const project = await api.project.create(body);
     loading.value = false;
 
     refresh();
-    return campaign;
+    return project;
   };
 
   const get = async () => {
     loading.value = true;
-    campaigns.value = await api.campaign.get();
+    projects.value = await api.project.get();
     loading.value = false;
   };
 
   const getOne = async (id: string) => {
     clearSelected();
     loading.value = true;
-    selectedCampaign.value = await api.campaign.getOne(id);
+    selectedProject.value = await api.project.getOne(id);
     loading.value = false;
   };
 
   const remove = async (id: string) => {
     loading.value = true;
-    await api.campaign.remove(id);
+    await api.project.remove(id);
     loading.value = false;
   };
 
   const update = async (body: FormDataInterface, id: string) => {
     loading.value = true;
-    const campaign = await api.campaign.update(id, body);
+    const project = await api.project.update(id, body);
     loading.value = false;
     refresh();
-    return campaign;
+    return project;
   };
 
   const clearSelected = () => {
-    selectedCampaign.value = null;
+    selectedProject.value = null;
   };
 
   return {
     loading,
-    campaigns,
-    selectedCampaign,
+    projects,
+    selectedProject,
     create,
     update,
     get,
@@ -61,6 +61,6 @@ export const useCampaign = defineStore('campaign', () => {
     remove,
     refresh,
     clearSelected,
-    needsRefresh
+    needsRefresh,
   };
 });

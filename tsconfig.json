@@ -6,6 +6,7 @@
   "compilerOptions": {
     "strictPropertyInitialization": false,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true  },
-  "target": "ES5"
+    "allowSyntheticDefaultImports": true  ,
+    "target": "ES5"
+  },
 }

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { ElementDto } from '~/domain/elements/element.dto';
+import { ElementDto } from '~/models/elements/element.dto';
+import BaseCard from '~/components/base/BaseCard.vue';
+import BaseIcon from '~/components/base/BaseIcon.vue';
+import BaseMarkdownViewer from '~/components/base/BaseMarkdownViewer.vue';
 
 defineProps({
-  element: { type: Object as PropType<ElementDto>, required: true }
+  element: { type: Object as PropType<ElementDto>, required: true },
 });
 </script>
 
