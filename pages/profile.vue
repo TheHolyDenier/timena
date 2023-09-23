@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import SignedLayout from '~/layouts/signed-layout.vue';
 import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
 import { UpdateUserDto } from '~/utils/models/user/update-user.dto';
 import { useUser } from '~/stores/user.store';
+import BodyLayout from '~/layouts/body-layout.vue';
+
+definePageMeta({
+  middleware: ['signed'],
+});
 
 const inputDefinitions: InputDefinition[] = [
   { name: 'avatar', label: 'Avatar' },
@@ -13,7 +17,7 @@ const updateProfile = async (body: UpdateUserDto) => $user.update(body);
 </script>
 
 <template>
-  <SignedLayout>
+  <BodyLayout>
     <h1>Edit profile</h1>
     <BaseForm
       :input-definitions="inputDefinitions"
@@ -21,7 +25,7 @@ const updateProfile = async (body: UpdateUserDto) => $user.update(body);
       compact
       @on:send="updateProfile"
     />
-  </SignedLayout>
+  </BodyLayout>
 </template>
 
 <style scoped lang="scss"></style>

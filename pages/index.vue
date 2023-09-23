@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SignedLayout from '~/layouts/signed-layout.vue';
+import BodyLayout from '~/layouts/body-layout.vue';
 import { storeToRefs } from 'pinia';
 import { useUser } from '~/stores/user.store';
 
@@ -7,12 +7,25 @@ const { me } = storeToRefs(useUser());
 </script>
 
 <template>
-  <SignedLayout>
-    Tata
-    <template v-if="me" #right-aside>
-      <TheProfile />
-    </template>
-  </SignedLayout>
+  <BodyLayout class="index">
+    <div v-if="me">
+      <div class="index__header">
+        <h1>Your projects</h1>
+        <BaseButton to="create-project" compact outline>
+          <BaseIcon icon="add" /> Project
+        </BaseButton>
+      </div>
+      <ProjectTable />
+    </div>
+  </BodyLayout>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.index {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+</style>

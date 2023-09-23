@@ -3,4 +3,6 @@ export type IconType =
   | 'home'
   | 'visibility'
   | 'visibility_off'
-  | 'logout';
+  | 'logout'
+  | 'add'
+  | 'link';

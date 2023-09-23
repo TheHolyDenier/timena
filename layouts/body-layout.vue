@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useUser } from '~/stores/user.store';
+
+const { me } = storeToRefs(useUser());
+</script>
 
 <template>
   <div class="signed">
@@ -6,11 +11,22 @@
       <slot />
     </div>
     <div>
-      <div v-if="$slots['right-aside']" class="signed__aside">
-        <div class="signed__aside-content">
-          <slot name="right-aside" />
-        </div>
+      <div v-if="me" class="signed__aside">
+        <TheProfile class="signed__aside-content" />
       </div>
+      <template v-if="Object.keys($slots).includes('right-aside')">
+        <div
+          v-for="key in Object.keys($slots).filter((keyValue) =>
+            keyValue.includes('right-aside')
+          )"
+          :key="key"
+          class="signed__aside"
+        >
+          <div class="signed__aside-content">
+            <slot :name="key" />
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
