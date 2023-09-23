@@ -18,6 +18,7 @@ onMounted(() => $project.getOne(projectId.value));
 <template>
   <BodyLayout>
     <pre>{{ JSON.stringify(selectedProject, null, 2) }}</pre>
+    <template #right-aside-2>Hola</template>
   </BodyLayout>
 </template>
 

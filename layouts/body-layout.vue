@@ -3,6 +3,11 @@ import { storeToRefs } from 'pinia';
 import { useUser } from '~/stores/user.store';
 
 const { me } = storeToRefs(useUser());
+const slots = useSlots();
+
+const rightAsideSlots = computed(() => {
+  return Object.keys(slots).filter((key) => key.includes('right-aside'));
+});
 </script>
 
 <template>
@@ -10,18 +15,12 @@ const { me } = storeToRefs(useUser());
     <div class="signed__body">
       <slot />
     </div>
-    <div>
+    <div class="signed__right-aside">
       <div v-if="me" class="signed__aside">
         <TheProfile class="signed__aside-content" />
       </div>
-      <template v-if="Object.keys($slots).includes('right-aside')">
-        <div
-          v-for="key in Object.keys($slots).filter((keyValue) =>
-            keyValue.includes('right-aside')
-          )"
-          :key="key"
-          class="signed__aside"
-        >
+      <template v-if="rightAsideSlots.length">
+        <div v-for="key in rightAsideSlots" :key="key" class="signed__aside">
           <div class="signed__aside-content">
             <slot :name="key" />
           </div>
@@ -40,8 +39,12 @@ const { me } = storeToRefs(useUser());
 
   &__aside {
     background-color: #eee;
-    padding-block-end: 0.5em;
+    padding-block: 0.5em;
     padding-inline-start: 0.5em;
+
+    &:first-child {
+      padding-block-start: 0;
+    }
   }
 
   &__aside-content {
@@ -50,8 +53,11 @@ const { me } = storeToRefs(useUser());
     border-bottom-width: 1px;
     border-left-width: 1px;
     border-right-width: 0;
-    border-top-width: 0;
     padding: 1em;
+
+    &:first-child {
+      border-top-width: 1px;
+    }
   }
 
   &__body {
@@ -59,6 +65,12 @@ const { me } = storeToRefs(useUser());
     padding: 1em;
     overflow-y: auto;
     height: 100%;
+  }
+
+  &__right-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
   }
 }
 </style>
