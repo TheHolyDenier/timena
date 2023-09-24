@@ -160,11 +160,7 @@ watch(modelValue, (value) => {
     }
 
     &--selected {
-      background-color: $secondary-neutral;
-
-      &:hover {
-        background-color: $secondary-neutral;
-      }
+      background-color: rgba($primary-neutral, 0.2);
     }
   }
 }
