@@ -29,7 +29,7 @@ export class ElementsManager {
       where: {
         projectId: project.id,
       },
-      orderBy: [{ isFavorite: 'desc' }, { title: 'asc' }],
+      orderBy: [{ isFavorite: 'desc' }, { name: 'asc' }],
     });
   };
 }

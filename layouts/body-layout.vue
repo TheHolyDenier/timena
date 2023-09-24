@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useUser } from '~/stores/user.store';
-import TheProfileSidebar from '~/components/TheProfileSidebar.vue';
 
 defineProps({ title: { type: String }, goBack: { type: Object } });
 
@@ -33,7 +32,7 @@ const rightAsideSlots = computed(() => {
     </div>
     <div class="signed__right-aside">
       <div v-if="me" class="signed__aside">
-        <TheProfileSidebar
+        <ProfileSidebar
           class="signed__aside-content signed__aside-content--first-one"
         />
       </div>

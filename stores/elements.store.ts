@@ -6,17 +6,17 @@ export const useElement = defineStore('element', () => {
   const loading = ref(false);
   const selectedElement = ref<ElementDto | null>(null);
 
-  const create = async (body: CreateElementDto) => {
+  const create = async (projectId: string, body: CreateElementDto) => {
     loading.value = true;
-    const element = await api.element.create(body);
+    const element = await api.element.create(projectId, body);
     loading.value = false;
 
     return element;
   };
 
-  const get = async () => {
+  const get = async (projectId: string) => {
     loading.value = true;
-    const elements = await api.element.get();
+    const elements = await api.element.get(projectId);
     loading.value = false;
     return elements;
   };

@@ -38,7 +38,7 @@ const remove = async () => {
     <ProjectForm v-else-if="selectedProject" :model="selectedProject" />
 
     <template #right-aside-project>
-      <TheProjectSidebar />
+      <ProjectSidebar />
     </template>
   </BodyLayout>
 </template>
