@@ -1,55 +1,55 @@
 import { defineEventHandler, H3Event, readBody } from 'h3';
 import { prisma } from '~/server/api';
 import { ProjectsManager } from '~/utils/manager/projects.manager';
-import { Project } from '@prisma/client';
 import { ApiMethodsEnum } from '~/utils/enums/api-methods.enum';
 import { notFoundError } from '~/errors/not-found.error';
 import {
   getStatusCode,
   StatusMessageEnum,
 } from '~/utils/enums/status-message.enum';
+import { EventsManager } from '~/utils/manager/events.manager';
 
-export default defineEventHandler(async (event: H3Event) => {
-  const project = await ProjectsManager.getParamAndFind(event);
+export default defineEventHandler(async (h3Event: H3Event) => {
+  const [_, event] = await Promise.all([
+    ProjectsManager.getParamAndFind(h3Event),
+    EventsManager.getParamAndFind(h3Event),
+  ]);
 
-  switch (event.context.method) {
+  switch (h3Event.context.method) {
     case ApiMethodsEnum.DELETE:
-      return deleteProject(project.id);
+      return deleteEvent(event.id);
     case ApiMethodsEnum.PATCH:
-      return patchProject(project.id, event);
+      return patchEvent(event.id, h3Event);
     case ApiMethodsEnum.GET:
-      return getProject(project);
+      return getEvent(event);
     default:
       throw notFoundError();
   }
 });
 
-const getProject = (project: Project) => {
+const getEvent = (event: Event) => {
   return {
     statusCode: getStatusCode(StatusMessageEnum.OK),
     statusMessage: StatusMessageEnum.OK,
-    data: project,
+    data: event,
   };
 };
 
-const patchProject = async (projectId: string, event: H3Event) => {
-  const body = await readBody(event);
+const patchEvent = async (eventId: string, h3Event: H3Event) => {
+  const body = await readBody(h3Event);
 
   return {
     statusCode: getStatusCode(StatusMessageEnum.OK),
     statusMessage: StatusMessageEnum.OK,
-    data: await prisma.project.update({
-      where: { id: projectId },
+    data: await prisma.event.update({
+      where: { id: eventId },
       data: { ...body, updatedAt: new Date() },
     }),
   };
 };
 
-const deleteProject = async (projectId: string) => {
-  await Promise.all([
-    prisma.project.delete({ where: { id: projectId } }),
-    prisma.element.deleteMany({ where: { projectId: projectId } }),
-  ]);
+const deleteEvent = async (eventId: string) => {
+  await prisma.event.delete({ where: { id: eventId } });
 
   return {
     statusCode: getStatusCode(StatusMessageEnum.OK),
