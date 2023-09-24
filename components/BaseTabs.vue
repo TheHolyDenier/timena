@@ -14,6 +14,7 @@ const selectedTab = ref<Tabs>(props.tabs[0]);
     <div class="tabs__header">
       <div
         class="tabs__item"
+        :class="{ 'tabs__item--active': selectedTab.name === tab.name }"
         v-for="tab in tabs"
         :key="tab.name"
         @click="selectedTab = tab"
@@ -33,19 +34,21 @@ const selectedTab = ref<Tabs>(props.tabs[0]);
 .tabs {
   &__header {
     display: flex;
-    gap: 0.3em;
     background-color: $primary-500;
-    padding-inline: 0.3em;
-    padding-block-start: 0.3em;
+    padding-inline-end: 0.5em;
+    border-top-right-radius: 15px;
   }
   &__item {
     padding: 0.5em;
     background-color: white;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
+    opacity: 0.7;
+
+    &--active {
+      opacity: 1;
+    }
   }
 
   &__body {
