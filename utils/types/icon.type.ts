@@ -1,12 +1,16 @@
 export type IconType =
+  | 'account_circle'
   | 'add'
+  | 'apartment'
   | 'arrow_back'
   | 'delete'
   | 'edit'
   | 'home'
   | 'image'
+  | 'iron'
   | 'link'
   | 'logout'
-  | 'account_circle'
+  | 'person'
+  | 'raven'
   | 'visibility'
   | 'visibility_off';
