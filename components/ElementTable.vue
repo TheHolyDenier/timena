@@ -28,15 +28,15 @@ const cellDefinitions: CellDefinition<ElementDto>[] = [
     type: 'boolean',
   },
   { name: 'description', title: 'Description', field: 'description' },
-  // {
-  //   name: 'id',
-  //   field: 'id',
-  //   to: (project) => ({
-  //     name: 'projects-projectId',
-  //     params: { projectId: project.id },
-  //   }),
-  //   type: 'link',
-  // },
+  {
+    name: 'id',
+    field: 'id',
+    to: (element) => ({
+      name: 'projects-projectId-elements-elementId',
+      params: { projectId: projectId.value, elementId: element.id },
+    }),
+    type: 'link',
+  },
 ];
 </script>
 

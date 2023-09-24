@@ -7,6 +7,6 @@ export type IconType =
   | 'image'
   | 'link'
   | 'logout'
-  | 'person'
+  | 'account_circle'
   | 'visibility'
   | 'visibility_off';

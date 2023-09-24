@@ -3,6 +3,10 @@ import BodyLayout from '~/layouts/body-layout.vue';
 import { storeToRefs } from 'pinia';
 import { useUser } from '~/stores/user.store';
 
+definePageMeta({
+  middleware: ['signed'],
+});
+
 const { me } = storeToRefs(useUser());
 </script>
 
@@ -11,7 +15,7 @@ const { me } = storeToRefs(useUser());
     <div v-if="me">
       <div class="index__header">
         <h1>Your projects</h1>
-        <BaseButton to="create-project" compact outline>
+        <BaseButton :to="{ name: 'create-project' }" compact outline>
           <BaseIcon icon="add" /> Project
         </BaseButton>
       </div>

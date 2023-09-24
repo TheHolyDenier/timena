@@ -6,10 +6,6 @@ import BodyLayout from '~/layouts/body-layout.vue';
 import { storeToRefs } from 'pinia';
 import { FormData } from '~/utils/interfaces/form.data';
 
-definePageMeta({
-  middleware: ['signed'],
-});
-
 const inputDefinitions: InputDefinition[] = [
   { name: 'avatar', label: 'Avatar' },
 ];

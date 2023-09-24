@@ -11,11 +11,11 @@ definePageMeta({
 const $route = useRoute();
 const $router = useRouter();
 
-const projectId = computed(() => $route.params.projectId);
+const projectId = computed(() => String($route.params.projectId));
 
 const $project = useProject();
 const { selectedProject, loading } = storeToRefs($project);
-onMounted(() => $project.getOne(projectId.value));
+onMounted(() => $project.selectProject(projectId.value));
 
 const remove = async () => {
   await $project.remove(projectId.value);
@@ -36,10 +36,6 @@ const remove = async () => {
 
     <BaseLoader v-if="loading" />
     <ProjectForm v-else-if="selectedProject" :model="selectedProject" />
-
-    <template #right-aside-project>
-      <ProjectSidebar />
-    </template>
   </BodyLayout>
 </template>
 

@@ -12,10 +12,10 @@ export const useElementService = () => {
   const baseUrl = (projectId: string) =>
     `/api/secure/projects/${projectId}/elements`;
   return {
-    create: async (projectId: string, body: FormData) =>
+    create: async (projectId: string, body: CreateElementDto) =>
       $base.create!(baseUrl(projectId), body),
 
-    update: async (projectId: string, id: string, body: FormData) =>
+    update: async (projectId: string, id: string, body: UpdateElementDto) =>
       $base.update!(`${baseUrl(projectId)}/${id}`, body),
 
     get: async (projectId: string) => $base.get(baseUrl(projectId)),

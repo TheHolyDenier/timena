@@ -13,6 +13,8 @@ defineProps({ label: { type: String } });
   border-radius: 7px;
   padding: 0.4em;
   font-weight: bold;
+  background-color: $primary-neutral;
+  text-transform: uppercase;
 
   &--positive {
     background-color: $secondary-500;

@@ -14,8 +14,6 @@ const $project = useProject();
 const { selectedProject, loading } = storeToRefs($project);
 const projectId = computed(() => String($route.params.projectId));
 
-onMounted(() => $project.getOne(projectId.value));
-
 const addElement = computed(
   (): RouteLocationRaw => ({
     name: 'projects-projectId-elements-create',
@@ -40,7 +38,7 @@ const tabs: Tabs = [
               <h2>Elements</h2>
               <BaseButton :to="addElement" compact>
                 <BaseIcon icon="add" />
-                Add element
+                Element
               </BaseButton>
             </div>
             <ElementTable :project-id="projectId" />
@@ -52,7 +50,7 @@ const tabs: Tabs = [
               <h2>Events</h2>
               <BaseButton :to="addElement" compact>
                 <BaseIcon icon="add" />
-                Add event
+                Event
               </BaseButton>
             </div>
             Tata
@@ -60,10 +58,6 @@ const tabs: Tabs = [
         </template>
       </BaseTabs>
     </div>
-
-    <template #right-aside-project>
-      <ProjectSidebar />
-    </template>
   </BodyLayout>
 </template>
 

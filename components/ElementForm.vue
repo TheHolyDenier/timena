@@ -6,7 +6,7 @@ import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
 import { CreateElementDto } from '~/utils/models/element/create-element.dto';
 import { UpdateElementDto } from '~/utils/models/element/update-element.dto';
 
-const $project = useElement();
+const $element = useElement();
 const $router = useRouter();
 
 const props = defineProps({
@@ -24,18 +24,22 @@ const inputDefinitions: InputDefinition[] = [
 ];
 
 const createElement = async (createElement: CreateElementDto) => {
-  const result = await $project.create(props.projectId, createElement);
+  const result = await $element.create(props.projectId, createElement);
   $router.push({
-    name: 'projects-projectId',
-    params: { projectId: props.projectId },
+    name: 'projects-projectId-elements-elementId',
+    params: { projectId: props.projectId, elementId: result.id },
   });
 };
 
 const updateElement = async (createElement: UpdateElementDto) => {
-  const result = await $project.update(props.model.id, createElement);
+  const result = await $element.update(
+    props.projectId,
+    props.model!.id,
+    createElement
+  );
   $router.push({
-    name: 'projects-projectId',
-    params: { projectId: props.projectId },
+    name: 'projects-projectId-elements-elementId',
+    params: { projectId: props.projectId, elementId: result.id },
   });
 };
 </script>

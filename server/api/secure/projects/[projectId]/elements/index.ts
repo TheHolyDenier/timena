@@ -27,7 +27,7 @@ const getElements = async (project: Project) => {
   return {
     statusCode: getStatusCode(StatusMessageEnum.OK),
     statusMessage: StatusMessageEnum.OK,
-    data: await ElementsManager.findMany(project),
+    data: await ElementsManager.findMany(project.id),
   };
 };
 

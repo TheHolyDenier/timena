@@ -2,6 +2,10 @@
 import ElementForm from '~/components/ElementForm.vue';
 import BodyLayout from '~/layouts/body-layout.vue';
 
+definePageMeta({
+  middleware: ['signed'],
+});
+
 const $route = useRoute();
 
 const projectId = computed(() => String($route.params.projectId));

@@ -26,14 +26,14 @@ $user.recoverUser();
         to="sign"
         class="navbar__navigation-item navbar__navigation-item--link"
       >
-        <BaseIcon class="navbar__login" icon="person" />
+        <BaseIcon class="navbar__login" icon="account_circle" />
         Login
       </RouterLink>
     </div>
     <div v-if="me" class="navbar__navigation">
       <RouterLink
         class="navbar__navigation-item navbar__navigation-item--link"
-        to="sign"
+        :to="{ name: 'sign' }"
         @click="$user.logout()"
       >
         <BaseIcon icon="logout" /> Logout

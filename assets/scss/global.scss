@@ -8,6 +8,7 @@ $secondary-500:  #1ee9a4;
 $secondary-600: #15D896;
 $secondary-700: #11AA76;
 
+$primary-neutral: #ffb4cd;
 $secondary-neutral: #cfeadf;
 
 :root {
@@ -75,4 +76,21 @@ span {
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+.card {
+  background-color: #eee;
+  box-shadow: rgba(0, 0, 0, 0.04) 0 3px 5px;
+  padding: 0.5em;
+
+  &__content {
+    border-style: dashed;
+    border-color: #ccc;
+    border-width: 1px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+  }
 }

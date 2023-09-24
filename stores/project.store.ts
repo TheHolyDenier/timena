@@ -22,11 +22,18 @@ export const useProject = defineStore('project', () => {
     return projects;
   };
 
-  const getOne = async (id: string) => {
+  const selectProject = async (id: string) => {
     clearSelected();
+
+    selectedProject.value = await getOne(id);
+  };
+
+  const getOne = async (id: string) => {
     loading.value = true;
-    selectedProject.value = await api.project.getOne(id);
+    const result = await api.project.getOne(id);
     loading.value = false;
+
+    return result;
   };
 
   const update = async (id: string, body: UpdateProjectDto) => {
@@ -48,5 +55,14 @@ export const useProject = defineStore('project', () => {
     selectedProject.value = null;
   };
 
-  return { loading, create, get, getOne, selectedProject, update, remove };
+  return {
+    loading,
+    selectProject,
+    create,
+    get,
+    getOne,
+    selectedProject,
+    update,
+    remove,
+  };
 });
