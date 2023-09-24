@@ -37,7 +37,7 @@ export class ProjectsManager {
         ],
       },
       include: { projectOnUser: true },
-      orderBy: [{ isFavorite: 'desc' }, { title: 'asc' }],
+      orderBy: [{ isFavorite: 'asc' }, { title: 'asc' }],
     });
   };
 }

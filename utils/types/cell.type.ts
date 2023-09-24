@@ -1,1 +1,1 @@
-export type CellType = 'text' | 'image' | 'boolean' | 'link';
+export type CellType = 'text' | 'image' | 'boolean' | 'link' | 'tag';

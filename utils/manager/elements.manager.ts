@@ -24,12 +24,12 @@ export class ElementsManager {
     });
   };
 
-  static findMany = async (project: Project): Element[] => {
+  static findMany = async (project: Project): Promise<Element[]> => {
     return prisma.element.findMany({
       where: {
         projectId: project.id,
       },
-      orderBy: [{ isFavorite: 'desc' }, { name: 'asc' }],
+      orderBy: [{ isFavorite: 'asc' }, { name: 'asc' }],
     });
   };
 }
