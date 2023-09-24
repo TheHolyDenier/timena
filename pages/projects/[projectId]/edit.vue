@@ -24,20 +24,15 @@ const remove = async () => {
 </script>
 
 <template>
-  <BodyLayout>
-    <div class="project__nav">
-      <BaseButton
-        :to="{ name: 'projects-projectId', params: { projectId: projectId } }"
-        flat
-        compact
-      >
-        <BaseIcon icon="arrow_back" />Go back
-      </BaseButton>
+  <BodyLayout
+    title="Edit Project"
+    :go-back="{ name: 'projects-projectId', params: { projectId: projectId } }"
+  >
+    <template #actions>
       <BaseButton flat compact @click="remove">
         <BaseIcon icon="delete" />Delete
       </BaseButton>
-    </div>
-    <h1>Edit project</h1>
+    </template>
 
     <BaseLoader v-if="loading" />
     <ProjectForm v-else-if="selectedProject" :model="selectedProject" />
@@ -48,9 +43,4 @@ const remove = async () => {
   </BodyLayout>
 </template>
 
-<style scoped lang="scss">
-.project__nav {
-  display: flex;
-  justify-content: space-between;
-}
-</style>
+<style scoped lang="scss"></style>

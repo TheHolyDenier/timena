@@ -11,8 +11,8 @@ export const useProjectService = () => {
   );
   const baseUrl = '/api/secure/projects';
   return {
-    create: async (body: FormDataInterface) => $base.create!(baseUrl, body),
-    update: async (id: string, body: FormDataInterface) =>
+    create: async (body: CreateProjectDto) => $base.create!(baseUrl, body),
+    update: async (id: string, body: UpdateProjectDto) =>
       $base.update!(`${baseUrl}/${id}`, body),
     get: async () => $base.get(baseUrl),
     getOne: async (id: string) => $base.getOne(`${baseUrl}/${id}`),

@@ -9,15 +9,16 @@ definePageMeta({
 
 const $route = useRoute();
 const $project = useProject();
-const { selectedProject } = storeToRefs($project);
+const { selectedProject, loading } = storeToRefs($project);
 const projectId = computed(() => String($route.params.projectId));
 
 onMounted(() => $project.getOne(projectId.value));
 </script>
 
 <template>
-  <BodyLayout>
-    <pre>{{ JSON.stringify(selectedProject, null, 2) }}</pre>
+  <BodyLayout :title="selectedProject?.title">
+    <BaseLoader v-if="loading" />
+
     <template #right-aside-project>
       <TheProjectSidebar />
     </template>

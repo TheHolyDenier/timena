@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { PropType } from '@vue/runtime-core';
 import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
+import { BaseDto } from '~/utils/models/base.dto';
+import { RouteLocationRaw } from 'vue-router';
+import { PropType } from '@vue/runtime-core';
 
 const props = defineProps({
   cellDefinition: {
-    type: Object as PropType<CellDefinition<T>>,
+    type: Object as PropType<CellDefinition<BaseDto>>,
     required: true,
   },
   data: { type: Object, required: true },
@@ -12,14 +14,14 @@ const props = defineProps({
 
 const value = computed(() => {
   return typeof props.cellDefinition.field === 'function'
-    ? props.cellDefinition.field(props.data)
+    ? props.cellDefinition.field(props.data as BaseDto)
     : props.data[props.cellDefinition.field];
 });
 
-const to = computed(() => {
+const to = computed<undefined | string | RouteLocationRaw>(() => {
   return typeof props.cellDefinition.to === 'function'
-    ? props.cellDefinition.to(props.data)
-    : props.to;
+    ? props.cellDefinition.to(props.data as BaseDto)
+    : props.cellDefinition.to;
 });
 </script>
 
@@ -35,7 +37,7 @@ const to = computed(() => {
   <span v-else-if="cellDefinition.type === 'boolean'">
     {{ value ? 'YES' : 'NO' }}
   </span>
-  <RouterLink v-else-if="cellDefinition.type === 'link'" :to="to">
+  <RouterLink v-else-if="cellDefinition.type === 'link' && to" :to="to">
     <BaseIcon icon="link" />
   </RouterLink>
   <span v-else> {{ value }} </span>

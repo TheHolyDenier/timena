@@ -1,6 +1,4 @@
-<script setup>
-import 'reflect-metadata';
-</script>
+<script setup></script>
 
 <template>
   <NuxtLayout>
