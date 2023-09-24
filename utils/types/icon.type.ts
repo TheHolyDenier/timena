@@ -3,6 +3,8 @@ export type IconType =
   | 'add'
   | 'apartment'
   | 'arrow_back'
+  | 'arrow_drop_down'
+  | 'close'
   | 'delete'
   | 'edit'
   | 'home'

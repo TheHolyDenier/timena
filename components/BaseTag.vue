@@ -1,13 +1,17 @@
 <script setup lang="ts">
-defineProps({ label: { type: String } });
+defineProps({ label: { type: String }, removable: { type: Boolean } });
 </script>
 
 <template>
-  <span class="label">{{ label }}</span>
+  <span class="label" :class="{ 'label--action': removable }">
+    {{ label }}
+    <BaseIcon v-if="removable" icon="close" size="15px" />
+  </span>
 </template>
 
 <style scoped lang="scss">
 @import 'assets/scss/global';
+
 .label {
   font-size: 0.7em;
   border-radius: 7px;
@@ -15,6 +19,13 @@ defineProps({ label: { type: String } });
   font-weight: bold;
   background-color: $primary-neutral;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+
+  &--action {
+    cursor: pointer;
+  }
 
   &--positive {
     background-color: $secondary-500;

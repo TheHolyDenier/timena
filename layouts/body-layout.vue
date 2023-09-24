@@ -79,7 +79,6 @@ onMounted(() => $project.selectProject(projectId.value));
   &__body {
     flex: 2;
     padding: 1em;
-    overflow-y: auto;
     height: 100%;
   }
 

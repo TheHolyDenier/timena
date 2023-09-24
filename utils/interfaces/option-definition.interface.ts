@@ -1,6 +1,7 @@
 import { IconType } from '~/utils/types/icon.type';
 
-export interface ElementType {
-  name: string;
+export interface OptionDefinition {
+  value: string;
+  label: string;
   icon: IconType;
 }
