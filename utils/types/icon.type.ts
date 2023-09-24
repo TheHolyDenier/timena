@@ -1,10 +1,12 @@
 export type IconType =
-  | 'person'
-  | 'home'
-  | 'visibility'
-  | 'visibility_off'
-  | 'logout'
   | 'add'
-  | 'link'
+  | 'arrow_back'
+  | 'delete'
+  | 'edit'
+  | 'home'
   | 'image'
-  | 'edit';
+  | 'link'
+  | 'logout'
+  | 'person'
+  | 'visibility'
+  | 'visibility_off';

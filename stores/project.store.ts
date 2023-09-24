@@ -1,6 +1,7 @@
 import { api } from '~/plugins/di';
 import { CreateProjectDto } from '~/utils/models/project/create-project.dto';
 import { ProjectDto } from '~/utils/models/project/project.dto';
+import { UpdateProjectDto } from '~/utils/models/project/update-project.dto';
 
 export const useProject = defineStore('project', () => {
   const loading = ref(false);
@@ -28,9 +29,24 @@ export const useProject = defineStore('project', () => {
     loading.value = false;
   };
 
+  const update = async (id: string, body: UpdateProjectDto) => {
+    loading.value = true;
+    const project = await api.project.update(id, body);
+    loading.value = false;
+
+    return project;
+  };
+
+  const remove = async (id: string) => {
+    loading.value = true;
+    await api.project.remove(id);
+    selectedProject.value = null;
+    loading.value = false;
+  };
+
   const clearSelected = () => {
     selectedProject.value = null;
   };
 
-  return { loading, create, get, getOne, selectedProject };
+  return { loading, create, get, getOne, selectedProject, update, remove };
 });

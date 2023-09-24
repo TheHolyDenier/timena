@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { PropType } from '@vue/runtime-core';
+import { RouteLocationRaw } from 'vue-router';
+
 defineProps({
   compact: { type: Boolean },
   outline: { type: Boolean },
-  to: { type: String },
+  to: { type: [String, Object] as PropType<string | RouteLocationRaw> },
   flat: { type: Boolean },
   loading: { type: Boolean },
 });
@@ -13,19 +16,19 @@ defineProps({
     <button
       class="button"
       :class="{ 'button--compact': compact, outline, 'button--flat': flat }"
-      :aria-busy="loading"
       :disabled="loading"
     >
+      <BaseLoader v-if="loading" size="small" />
       <slot></slot>
     </button>
   </RouterLink>
   <button
     v-else
     class="button"
-    :class="{ 'button--compact': compact, outline, flat }"
-    :aria-busy="loading"
+    :class="{ 'button--compact': compact, outline, 'button--flat': flat }"
     :disabled="loading"
   >
+    <BaseLoader v-if="loading" size="small" />
     <slot></slot>
   </button>
 </template>
@@ -43,6 +46,7 @@ defineProps({
   padding-inline: 0.3em;
   text-transform: uppercase;
   height: 40px;
+  font-weight: bold;
 
   &--flat {
     background: transparent;
@@ -61,6 +65,10 @@ defineProps({
   &--link {
     text-decoration: none;
     width: auto;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

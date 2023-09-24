@@ -11,7 +11,10 @@ $user.recoverUser();
 <template>
   <div class="navbar">
     <div class="navbar__navigation">
-      <RouterLink to="/" class="navbar__navigation-item">
+      <RouterLink
+        to="/"
+        class="navbar__navigation-item navbar__navigation-item--link"
+      >
         <BaseIcon icon="home" />
         Inicio
       </RouterLink>

@@ -16,7 +16,7 @@ const cellDefinitions: CellDefinition<ProjectDto>[] = [
   { name: 'title', title: 'Title', field: 'title' },
   {
     name: 'isFavorite',
-    title: 'Is favorite?',
+    title: 'Favorite?',
     field: 'isFavorite',
     type: 'boolean',
   },

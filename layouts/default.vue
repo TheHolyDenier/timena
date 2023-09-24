@@ -14,7 +14,6 @@
 <style scoped lang="scss">
 .layout {
   max-width: 100vw;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +23,7 @@
 
   &__body {
     width: calc(100vw - 1em);
-    min-height: calc(100vh - 1em);
+    min-height: calc(100vh - 2em);
     background: white;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.04) 0 3px 5px;

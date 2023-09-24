@@ -15,9 +15,14 @@ const inputDefinitions: InputDefinition[] = [
 ];
 
 const $user = useUser();
+const $router = useRouter();
+
 const { loading } = storeToRefs($user);
 const model = computed(() => $user.me as FormData);
-const updateProfile = async (body: UpdateUserDto) => $user.update(body);
+const updateProfile = async (body: UpdateUserDto) => {
+  await $user.update(body);
+  $router.push({ name: 'index' });
+};
 </script>
 
 <template>

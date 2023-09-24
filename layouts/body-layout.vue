@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useUser } from '~/stores/user.store';
+import TheProfileSidebar from '~/components/TheProfileSidebar.vue';
 
 const { me } = storeToRefs(useUser());
 const slots = useSlots();
@@ -17,7 +18,9 @@ const rightAsideSlots = computed(() => {
     </div>
     <div class="signed__right-aside">
       <div v-if="me" class="signed__aside">
-        <TheProfile class="signed__aside-content" />
+        <TheProfileSidebar
+          class="signed__aside-content signed__aside-content--first-one"
+        />
       </div>
       <template v-if="rightAsideSlots.length">
         <div v-for="key in rightAsideSlots" :key="key" class="signed__aside">
@@ -56,14 +59,15 @@ const rightAsideSlots = computed(() => {
     border-bottom-width: 1px;
     border-left-width: 1px;
     border-right-width: 0;
+    border-top-width: 1px;
     padding: 1em;
     display: flex;
     flex-direction: column;
     gap: 1em;
     align-items: center;
 
-    &:first-child {
-      border-top-width: 1px;
+    &--first-one {
+      border-top-width: 0;
     }
   }
 

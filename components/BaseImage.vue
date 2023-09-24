@@ -5,8 +5,7 @@ defineProps({
   alt: { type: String, default: 'Image' },
   round: { type: Boolean },
   roundedCorners: { type: Boolean },
-  height: { type: String },
-  width: { type: String },
+  aspectRatio: { type: String, default: '1 / 1' },
 });
 </script>
 
@@ -18,7 +17,7 @@ defineProps({
       'picture--round': round,
       'picture--rounded-borders': roundedCorners,
     }"
-    :style="{ width: width || size, height: height || size }"
+    :style="{ width: size, 'aspect-ratio': aspectRatio }"
   >
     <img class="picture__image" :alt="alt" :src="src" />
   </div>

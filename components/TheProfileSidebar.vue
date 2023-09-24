@@ -5,16 +5,14 @@ const { me, loading } = useUser();
 </script>
 
 <template>
-  <div :aria-busy="loading" v-if="me" class="profile">
-    <p v-if="!loading" class="profile__title">
+  <BaseLoader v-if="loading" />
+  <div v-else-if="me" class="profile">
+    <p class="profile__title">
       Hi,
-      <span class="profile__title--name">
+      <RouterLink :to="{ name: 'profile' }" class="profile__title--name">
         <BaseImage :alt="me.username" :src="me.avatar" size="25px" round />
         {{ me.username }}!
-      </span>
-      <BaseButton to="/profile" compact flat>
-        <BaseIcon icon="edit" /> Edit profile
-      </BaseButton>
+      </RouterLink>
     </p>
   </div>
 </template>
@@ -25,12 +23,14 @@ const { me, loading } = useUser();
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 0.5em;
 
   &--name {
     display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.1em;
+    font-weight: bold;
   }
 }
 </style>

@@ -25,11 +25,12 @@ const to = computed(() => {
 
 <template>
   <span v-if="value === null">-</span>
-  <img
-    class="cell--image"
+  <BaseImage
     v-else-if="cellDefinition.type === 'image'"
     :src="value"
     :alt="cellDefinition.title"
+    aspect-ratio="2 / 3 "
+    size="100px"
   />
   <span v-else-if="cellDefinition.type === 'boolean'">
     {{ value ? 'YES' : 'NO' }}
@@ -40,8 +41,4 @@ const to = computed(() => {
   <span v-else> {{ value }} </span>
 </template>
 
-<style scoped lang="scss">
-.cell--image {
-  max-width: 100px;
-}
-</style>
+<style scoped lang="scss"></style>
