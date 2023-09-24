@@ -20,7 +20,7 @@ const inputDefinitions: InputDefinition[] = [
   { name: 'cover', label: 'Cover' },
   { name: 'isFavorite', label: 'Is favorite?', type: 'checkbox' },
   { name: 'exists', label: 'Exists?', type: 'checkbox' },
-  { name: 'type', label: 'Type' },
+  { name: 'type', label: 'Type', type: 'select' },
 ];
 
 const createElement = async (createElement: CreateElementDto) => {

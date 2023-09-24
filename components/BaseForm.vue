@@ -37,6 +37,15 @@ const formData = ref<FormData>(props.model ? { ...props.model } : {});
         @on:update="formData[inputDefinition.name] = $event"
       />
 
+      <BaseFormSelect
+        v-else-if="inputDefinition.type === 'select'"
+        :label="inputDefinition.label"
+        :name="inputDefinition.name"
+        :value="formData[inputDefinition.name]"
+        class="form__child"
+        @on:update="formData[inputDefinition.name] = $event"
+      />
+
       <BaseFormInputPassword
         v-else-if="inputDefinition.type === 'password'"
         :label="inputDefinition.label"

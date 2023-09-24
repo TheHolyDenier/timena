@@ -17,7 +17,7 @@ $secondary-neutral: #cfeadf;
   --secondary-focus: #{rgba($secondary-600, 0.125)};
 }
 
-@import '@picocss/pico/scss/pico.slim';
+@import '@picocss/pico/scss/pico';
 
 
 * {

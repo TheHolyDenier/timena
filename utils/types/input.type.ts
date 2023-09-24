@@ -1,1 +1,1 @@
-export type InputType = 'text' | 'password' | 'checkbox';
+export type InputType = 'text' | 'password' | 'checkbox' | 'select';
