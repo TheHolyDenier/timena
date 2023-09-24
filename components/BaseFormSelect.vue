@@ -4,7 +4,7 @@ import { InputType } from '~/utils/types/input.type';
 import { ELEMENT_TYPES } from '~/utils/models/element/ELEMENT_TYPES';
 
 const emit = defineEmits<{
-  (e: 'on:update', value: string | number | undefined);
+  (e: 'on:update', value: string[]): void;
 }>();
 
 const props = defineProps({
@@ -36,11 +36,23 @@ const optionAction = (optionValue: string) => {
   else modelValue.value.splice(index, 1);
 };
 
+const className = computed(() => `select--${props.name}`);
+
 watch(modelValue, (value) => {
   emit('on:update', value);
 });
 
-// document.addEventListener() TODO on close
+const closeSelectListener = (event: Event) => {
+  const target = event.target as HTMLElement;
+  if (!target.getAttribute('class')?.includes(className.value)) {
+    displayOptions.value = false;
+  }
+};
+
+onMounted(() => document.addEventListener('click', closeSelectListener, false));
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeSelectListener, false);
+});
 </script>
 
 <template>
@@ -64,21 +76,16 @@ watch(modelValue, (value) => {
         :id="name"
         :type="type || 'text'"
         class="select__element"
+        :class="{ [className]: true }"
         @click="displayOptions = !displayOptions"
       />
       <div
-        @click="displayOptions = !displayOptions"
         class="select__trailing-icon"
+        @click="displayOptions = !displayOptions"
       >
         <BaseIcon icon="arrow_drop_down" />
       </div>
-      <div
-        v-if="displayOptions"
-        ref="optionsRef"
-        class="select__options"
-        tabindex="0"
-        @focusout="displayOptions = false"
-      >
+      <div v-if="displayOptions" ref="optionsRef" class="select__options">
         <div
           class="select__option select__option--empty"
           v-if="!options.length"
