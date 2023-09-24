@@ -1,21 +1,19 @@
 import { User } from '@prisma/client';
-import { SignInDto } from '~/utils/models/auth/sign-in.dto';
-import { SignUpDto } from '~/utils/models/auth/sign-up.dto';
-import { ApiResponse } from '~/utils/interfaces/api-response';
-import { getQueryParams } from '~/utils/query-params';
-import { FormData } from '~/utils/interfaces/form.data';
 import { plainToInstance } from 'class-transformer';
+import { SignInDto } from '~/utils/models/auth/sign-in.dto';
+import { ApiResponse } from '~/utils/interfaces/api-response';
 import { UserDto } from '~/utils/models/user/user.dto';
+import { SignUpDto } from '~/utils/models/auth/sign-up.dto';
 
 export class AuthService {
-  async signIn(body: SignInDto): Promise<User> {
+  async signIn(body: SignInDto): Promise<UserDto> {
     const result: ApiResponse<User> = await $fetch(
       `/api/auth?${getQueryParams(body)}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
+        } as HeadersInit,
       }
     );
 
@@ -24,7 +22,7 @@ export class AuthService {
     });
   }
 
-  async signUp(body: FormData): Promise<ApiResponse<User>> {
+  async signUp(body: FormData): Promise<UserDto> {
     const result = await $fetch('/api/auth', {
       method: 'POST',
       headers: {

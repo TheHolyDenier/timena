@@ -43,9 +43,10 @@ $user.recoverUser();
 @import '@/assets/scss/global';
 
 .navbar {
-  width: 100%;
+  width: calc(100vw - 2em);
   background: $primary-500;
   padding: 0.5em;
+  border-radius: 15px 15px 0 0;
 
   display: flex;
   justify-content: space-between;

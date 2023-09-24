@@ -21,8 +21,10 @@ const rightAsideSlots = computed(() => {
       </div>
       <template v-if="rightAsideSlots.length">
         <div v-for="key in rightAsideSlots" :key="key" class="signed__aside">
-          <div class="signed__aside-content">
-            <slot :name="key" />
+          <div>
+            <template class="signed__aside-content">
+              <slot :name="key" />
+            </template>
           </div>
         </div>
       </template>
@@ -41,6 +43,7 @@ const rightAsideSlots = computed(() => {
     background-color: #eee;
     padding-block: 0.5em;
     padding-inline-start: 0.5em;
+    max-width: 200px;
 
     &:first-child {
       padding-block-start: 0;
@@ -54,6 +57,10 @@ const rightAsideSlots = computed(() => {
     border-left-width: 1px;
     border-right-width: 0;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
 
     &:first-child {
       border-top-width: 1px;

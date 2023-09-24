@@ -16,7 +16,6 @@ const props = defineProps({
 const modelValue = ref(props.value ? props.value : '');
 
 watch(modelValue, (value) => {
-  console.log('tmp', 'value', value);
   emit('on:update', value);
 });
 </script>

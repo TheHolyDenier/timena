@@ -7,7 +7,7 @@ import BaseFormInput from '~/components/BaseFormInput.vue';
 import BaseButton from '~/components/BaseButton.vue';
 import { FormData } from '~/utils/interfaces/form.data';
 
-defineEmits<{ (e: 'on:send', value: FormData) }>();
+defineEmits<{ (e: 'on:send', value: FormData): void }>();
 
 const props = defineProps({
   inputDefinitions: {
@@ -16,6 +16,7 @@ const props = defineProps({
   },
   compact: { type: Boolean },
   model: { type: Object as PropType<FormData> },
+  loading: { type: Boolean },
 });
 
 const formData = ref<FormData>(props.model ? { ...props.model } : {});
@@ -57,7 +58,11 @@ const formData = ref<FormData>(props.model ? { ...props.model } : {});
     </template>
 
     <div>
-      <BaseButton :compact="compact" @click="$emit('on:send', formData)">
+      <BaseButton
+        :loading="loading"
+        :compact="compact"
+        @click="$emit('on:send', formData)"
+      >
         Enviar
       </BaseButton>
     </div>

@@ -5,4 +5,6 @@ export type IconType =
   | 'visibility_off'
   | 'logout'
   | 'add'
-  | 'link';
+  | 'link'
+  | 'image'
+  | 'edit';

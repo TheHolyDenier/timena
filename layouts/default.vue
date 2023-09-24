@@ -13,8 +13,8 @@
 
 <style scoped lang="scss">
 .layout {
-  width: 100vw;
-  height: 100vh;
+  max-width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,17 +23,14 @@
   padding: 0.5em;
 
   &__body {
-    width: 100%;
-    height: 100%;
+    width: calc(100vw - 1em);
+    min-height: calc(100vh - 1em);
     background: white;
     border-radius: 15px;
-    overflow: hidden;
-
     box-shadow: rgba(0, 0, 0, 0.04) 0 3px 5px;
   }
 
   &__body-slot {
-    overflow-y: auto;
     height: 100%;
   }
 }

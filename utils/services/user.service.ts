@@ -1,11 +1,12 @@
 import { User } from '@prisma/client';
 import { useUser } from '~/stores/user.store';
 import { UpdateUserDto } from '~/utils/models/user/update-user.dto';
-import { ApiResponse } from '~/interfaces/api-response';
+import { ApiResponse } from '~/utils/interfaces/api-response';
 import { plainToInstance } from 'class-transformer';
+import { UserDto } from '~/utils/models/user/user.dto';
 
 export class UserService {
-  async getMe() {
+  async getMe(): Promise<UserDto> {
     const user = useUser();
 
     const result: ApiResponse<User> = await $fetch('/api/secure/users', {
@@ -13,13 +14,15 @@ export class UserService {
       headers: {
         'Content-Type': 'application/json',
         Authorization: user.token(),
-      },
+      } as HeadersInit,
     });
 
-    return result.data;
+    return plainToInstance(UserDto, result.data, {
+      excludeExtraneousValues: true,
+    });
   }
 
-  async update(body: UpdateUserDto): Promise<User> {
+  async update(body: UpdateUserDto): Promise<UserDto> {
     const user = useUser();
 
     const result: ApiResponse<User> = await $fetch('/api/secure/users', {
@@ -27,10 +30,12 @@ export class UserService {
       headers: {
         'Content-Type': 'application/json',
         Authorization: user.token(),
-      },
+      } as HeadersInit,
       body: JSON.stringify(plainToInstance(UpdateUserDto, body)),
     });
 
-    return result.data as User;
+    return plainToInstance(UserDto, result.data, {
+      excludeExtraneousValues: true,
+    });
   }
 }

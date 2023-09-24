@@ -3,6 +3,8 @@ import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
 import { UpdateUserDto } from '~/utils/models/user/update-user.dto';
 import { useUser } from '~/stores/user.store';
 import BodyLayout from '~/layouts/body-layout.vue';
+import { storeToRefs } from 'pinia';
+import { FormData } from '~/utils/interfaces/form.data';
 
 definePageMeta({
   middleware: ['signed'],
@@ -13,6 +15,8 @@ const inputDefinitions: InputDefinition[] = [
 ];
 
 const $user = useUser();
+const { loading } = storeToRefs($user);
+const model = computed(() => $user.me as FormData);
 const updateProfile = async (body: UpdateUserDto) => $user.update(body);
 </script>
 
@@ -21,7 +25,8 @@ const updateProfile = async (body: UpdateUserDto) => $user.update(body);
     <h1>Edit profile</h1>
     <BaseForm
       :input-definitions="inputDefinitions"
-      :model="$user.me"
+      :model="model"
+      :loading="loading"
       compact
       @on:send="updateProfile"
     />
