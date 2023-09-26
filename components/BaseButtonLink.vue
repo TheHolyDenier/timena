@@ -1,21 +1,27 @@
 <script setup lang="ts">
+import { PropType } from '@vue/runtime-core';
+import { RouteLocationRaw } from 'vue-router';
+
 defineProps({
   compact: { type: Boolean },
   outline: { type: Boolean },
+  to: { type: [String, Object] as PropType<string | RouteLocationRaw> },
   flat: { type: Boolean },
   loading: { type: Boolean },
 });
 </script>
 
 <template>
-  <button
-    class="button"
-    :class="{ 'button--compact': compact, outline, 'button--flat': flat }"
-    :disabled="loading"
-  >
-    <BaseLoader v-if="loading" size="small" />
-    <slot></slot>
-  </button>
+  <RouterLink v-if="to" :to="to" class="button button--link">
+    <BaseButton
+      :compact="compact"
+      :outline="outline"
+      :flat="flat"
+      :loading="loading"
+    >
+      <slot></slot>
+    </BaseButton>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">

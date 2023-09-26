@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;0,900;1,400&family=Oswald:wght@400;700&display=swap');
+
+*:not([class^="material-symbols"]) {
+  font-family: 'Noto Sans', serif;
+}
+
+* {
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: Oswald, sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+small{
+ font-size: 0.8rem;
+}

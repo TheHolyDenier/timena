@@ -22,18 +22,34 @@ watch(modelValue, (value) => {
 
 <template>
   <div class="input">
-    <div class="input__container">
-      <input
-        :id="name"
-        v-model="modelValue"
-        :type="type || 'text'"
-        class="input__element"
-      />
-      <div class="input__trailing-icon">
-        <slot name="trailing-icon"></slot>
-      </div>
+    <input
+      :id="name"
+      v-model="modelValue"
+      :type="type || 'text'"
+      class="input__element"
+    />
+    <div class="input__trailing-icon">
+      <slot name="trailing-icon"></slot>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-block: 0.5em 1em;
+
+  &__element {
+    padding: 1em;
+    border: 1px solid lightgrey;
+    border-radius: 7px;
+
+    &:hover,
+    &:focus-visible {
+      border-color: gray;
+    }
+  }
+}
+</style>
