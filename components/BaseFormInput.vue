@@ -3,7 +3,7 @@ import { PropType, ref, watch } from '@vue/runtime-core';
 import { InputType } from '~/utils/types/input.type';
 
 const emit = defineEmits<{
-  (e: 'on:update', value: string | number | undefined);
+  (e: 'on:update', value: string | number | undefined): void;
 }>();
 
 const props = defineProps({
@@ -21,10 +21,7 @@ watch(modelValue, (value) => {
 </script>
 
 <template>
-  <fieldset class="input">
-    <label v-if="label" :for="name">
-      {{ label }}
-    </label>
+  <div class="input">
     <div class="input__container">
       <input
         :id="name"
@@ -36,30 +33,7 @@ watch(modelValue, (value) => {
         <slot name="trailing-icon"></slot>
       </div>
     </div>
-  </fieldset>
+  </div>
 </template>
 
-<style scoped lang="scss">
-.input {
-  margin: 0;
-  &__element {
-    margin-bottom: 0;
-    height: 50px;
-    padding: 0.3em;
-    display: flex;
-    align-items: center;
-  }
-
-  &__container {
-    position: relative;
-  }
-
-  &__trailing-icon {
-    position: absolute;
-    right: 1em;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: auto;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

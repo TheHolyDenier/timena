@@ -2,6 +2,8 @@
 
 <template>
   <NuxtLayout>
-    <NuxtPage />
+    <client-only placeholder="Loading...">
+      <NuxtPage />
+    </client-only>
   </NuxtLayout>
 </template>

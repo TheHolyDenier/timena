@@ -34,9 +34,11 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@picocss/pico": "^1.5.10",
     "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "^5.3.1",
+    "@tiptap/pm": "^2.1.11",
+    "@tiptap/starter-kit": "^2.1.11",
+    "@tiptap/vue-3": "^2.1.11",
     "@types/lodash": "^4.14.198",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",

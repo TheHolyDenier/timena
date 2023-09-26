@@ -19,7 +19,7 @@ defineProps({ label: { type: String }, removable: { type: Boolean } });
   font-weight: bold;
   background-color: $primary-neutral;
   text-transform: uppercase;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.2em;
 

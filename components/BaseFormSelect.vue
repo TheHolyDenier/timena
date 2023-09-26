@@ -56,10 +56,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <fieldset class="select">
-    <label v-if="label" :for="name">
-      {{ label }}
-    </label>
+  <div class="select">
     <div class="select__tags">
       <BaseTag
         v-for="value of modelValue"
@@ -106,7 +103,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-  </fieldset>
+  </div>
 </template>
 
 <style scoped lang="scss">

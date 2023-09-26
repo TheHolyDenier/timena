@@ -16,7 +16,7 @@ const props = defineProps({
 
 const inputDefinitions: InputDefinition[] = [
   { name: 'name', label: 'Name' },
-  { name: 'description', label: 'Description' },
+  { name: 'description', label: 'Description', type: 'markdown' },
   { name: 'cover', label: 'Cover' },
   { name: 'isFavorite', label: 'Is favorite?', type: 'checkbox' },
   { name: 'exists', label: 'Exists?', type: 'checkbox' },

@@ -17,12 +17,12 @@ watch(modelValue, (value) => emit('on:update', value));
 </script>
 
 <template>
-  <fieldset class="checkbox">
+  <div class="checkbox">
     <label v-if="label" :for="name">
       <input v-model="modelValue" type="checkbox" :id="name" :name="name" />
       {{ label }}
     </label>
-  </fieldset>
+  </div>
 </template>
 
 <style scoped lang="scss">

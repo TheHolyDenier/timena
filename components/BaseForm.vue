@@ -6,6 +6,8 @@ import BaseFormInputPassword from '~/components/BaseFormInputPassword.vue';
 import BaseFormInput from '~/components/BaseFormInput.vue';
 import BaseButton from '~/components/BaseButton.vue';
 import { FormData } from '~/utils/interfaces/form.data';
+import { BaseDto } from '~/utils/models/base.dto';
+import BaseFormMarkdown from '~/components/BaseFormMarkdown.vue';
 
 defineEmits<{ (e: 'on:send', value: FormData): void }>();
 
@@ -15,19 +17,29 @@ const props = defineProps({
     default: () => [],
   },
   compact: { type: Boolean },
-  model: { type: Object as PropType<FormData> },
+  model: { type: Object as PropType<BaseDto> },
   loading: { type: Boolean },
 });
 
-const formData = ref<FormData>(props.model ? { ...props.model } : {});
+const formData = ref<FormData>(
+  props.model ? ({ ...props.model } as FormData) : {}
+);
 </script>
 
 <template>
   <form class="form" @submit.prevent>
-    <template
+    <fieldset
+      class="form__fieldset"
       v-for="inputDefinition of inputDefinitions"
       :key="inputDefinition.name"
     >
+      <label
+        v-if="inputDefinition.label && inputDefinition.type !== 'checkbox'"
+        :for="inputDefinition.name"
+      >
+        {{ inputDefinition.label }}
+      </label>
+
       <BaseFormCheckbox
         v-if="inputDefinition.type === 'checkbox'"
         :label="inputDefinition.label"
@@ -55,6 +67,15 @@ const formData = ref<FormData>(props.model ? { ...props.model } : {});
         @on:update="formData[inputDefinition.name] = $event"
       />
 
+      <BaseFormMarkdown
+        v-else-if="inputDefinition.type === 'markdown'"
+        :label="inputDefinition.label"
+        :name="inputDefinition.name"
+        :value="formData[inputDefinition.name]"
+        class="form__child"
+        @on:update="formData[inputDefinition.name] = $event"
+      />
+
       <BaseFormInput
         v-else
         :label="inputDefinition.label"
@@ -64,7 +85,7 @@ const formData = ref<FormData>(props.model ? { ...props.model } : {});
         class="form__child"
         @on:update="formData[inputDefinition.name] = $event"
       />
-    </template>
+    </fieldset>
 
     <div>
       <BaseButton
@@ -84,8 +105,9 @@ const formData = ref<FormData>(props.model ? { ...props.model } : {});
   flex-direction: column;
   gap: 0.5em;
 
-  &__child {
+  &__fieldset {
     flex: 1;
+    border: 0;
   }
 }
 </style>
