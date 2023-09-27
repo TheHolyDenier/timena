@@ -44,6 +44,7 @@ const to = computed<undefined | string | RouteLocationRaw>(() => {
     <BaseIcon icon="link" />
   </RouterLink>
   <BaseTag v-else-if="cellDefinition.type === 'tag'" :label="value" />
+  <span v-else-if="cellDefinition.type === 'html'" v-html="value"> </span>
   <span v-else> {{ value }} </span>
 </template>
 

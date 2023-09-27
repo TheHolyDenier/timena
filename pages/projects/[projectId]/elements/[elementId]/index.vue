@@ -30,7 +30,7 @@ onMounted(() => $element.selectElement(projectId.value, elementId.value));
 <template>
   <BodyLayout :go-back="goBack">
     <template #actions>
-      <BaseButton
+      <BaseButtonLink
         :to="{
           name: 'projects-projectId-elements-elementId-edit',
           params: { projectId: projectId, elementId: elementId },
@@ -39,7 +39,7 @@ onMounted(() => $element.selectElement(projectId.value, elementId.value));
         outline
       >
         <BaseIcon icon="add" /> Edit
-      </BaseButton>
+      </BaseButtonLink>
     </template>
 
     <BaseLoader v-if="loading" />
@@ -52,7 +52,7 @@ onMounted(() => $element.selectElement(projectId.value, elementId.value));
             <BaseTag v-if="selectedElement.isFavorite" label="Favorite" />
             <BaseTag v-if="selectedElement.exists" label="Exists" />
           </div>
-          <p>{{ selectedElement.description }}</p>
+          <div v-html="selectedElement.description"></div>
         </div>
       </div>
     </div>

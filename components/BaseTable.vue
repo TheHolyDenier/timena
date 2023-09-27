@@ -9,22 +9,22 @@ defineProps({
     type: Array as PropType<CellDefinition<BaseDto>[]>,
     default: () => [],
   },
-  data: { type: Array, default: () => [] },
+  data: { type: Array as PropType<BaseDto[]>, default: () => [] },
 });
 </script>
 
 <template>
-  <table>
-    <tr>
+  <table class="table">
+    <tr class="table__row table__row--first">
       <th
         class="table__title"
         v-for="cellDefinition of cellDefinitions"
-        :key="cellDefinitions"
+        :key="cellDefinition.name"
       >
         {{ cellDefinition.title }}
       </th>
     </tr>
-    <tr v-for="element of data" :key="element.id">
+    <tr v-for="element of data" :key="element.id" class="table__row">
       <td v-for="cellDefinition of cellDefinitions" :key="cellDefinitions">
         <BaseTableCell :cell-definition="cellDefinition" :data="element" />
       </td>
@@ -34,9 +34,21 @@ defineProps({
 
 <style scoped lang="scss">
 .table {
+  border-collapse: separate;
+  border-spacing: 1em;
+  margin: 25px 0;
+  width: 100%;
+
+  &__row {
+    &--first {
+    }
+  }
+
   &__title {
     text-transform: uppercase;
     font-size: 0.8rem;
+    text-align: left;
+    padding-block: 0.3em;
   }
 }
 </style>

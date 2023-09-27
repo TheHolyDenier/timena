@@ -67,18 +67,14 @@ onBeforeUnmount(() => {
       />
     </div>
     <div class="select__container">
-      <input
-        v-model="search"
-        ref="inputRef"
-        :id="name"
-        :type="type || 'text'"
-        class="select__element"
-        :class="{ [className]: true }"
-        @click="displayOptions = !displayOptions"
+      <BaseFormInput
+        :name="`select-${name}`"
+        @on:update="search = String($event)"
+        @click.stop="displayOptions = !displayOptions"
       />
       <div
         class="select__trailing-icon"
-        @click="displayOptions = !displayOptions"
+        @click.stop="displayOptions = !displayOptions"
       >
         <BaseIcon icon="arrow_drop_down" />
       </div>
@@ -110,15 +106,10 @@ onBeforeUnmount(() => {
 @import 'assets/scss/global';
 
 .select {
-  max-width: calc(100% - 26px);
-  margin: 0;
-
-  &__element {
-    margin-block-end: 0 !important;
-    height: 50px;
-    display: flex;
-    align-items: center;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-block: 0.5em 1em;
 
   &__container {
     position: relative;

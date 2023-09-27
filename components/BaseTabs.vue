@@ -3,7 +3,7 @@ import { PropType } from '@vue/runtime-core';
 import { Tabs } from '~/utils/interfaces/tabs.interface';
 
 const props = defineProps({
-  tabs: { type: Array as PropType<Tabs>, default: () => [] },
+  tabs: { type: Array as PropType<Tabs[]>, default: () => [] },
 });
 
 const selectedTab = ref<Tabs>(props.tabs[0]);

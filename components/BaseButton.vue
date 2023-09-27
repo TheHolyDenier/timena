@@ -22,38 +22,9 @@ defineProps({
 @import 'assets/scss/global';
 
 .button {
-  margin: 0;
-  display: flex;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.3em;
-  padding-block: 0;
-  padding-inline: 0.3em;
-  text-transform: uppercase;
-  height: 40px;
-  font-weight: bold;
-
-  &--flat {
-    background: transparent;
-    border: 0;
-    color: $primary-500;
-
-    &:focus {
-      color: $primary-700;
-    }
-  }
-
-  &--compact {
-    width: auto;
-  }
-
-  &--link {
-    text-decoration: none;
-    width: auto;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
 </style>

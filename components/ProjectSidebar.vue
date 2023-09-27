@@ -16,7 +16,7 @@ const { selectedProject, loading } = storeToRefs($project);
     />
     <p class="project__title">{{ selectedProject.title }}</p>
     <small>{{ selectedProject.summary }}</small>
-    <BaseButton
+    <BaseButtonLink
       outline
       :to="{
         name: 'projects-projectId-edit',
@@ -24,7 +24,7 @@ const { selectedProject, loading } = storeToRefs($project);
       }"
     >
       <BaseIcon icon="edit" />Edit project
-    </BaseButton>
+    </BaseButtonLink>
   </div>
 </template>
 

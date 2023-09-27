@@ -27,7 +27,12 @@ const cellDefinitions: CellDefinition<ElementDto>[] = [
     field: 'exists',
     type: 'boolean',
   },
-  { name: 'description', title: 'Description', field: 'description' },
+  {
+    name: 'description',
+    title: 'Description',
+    field: 'description',
+    type: 'html',
+  },
   {
     name: 'id',
     field: 'id',

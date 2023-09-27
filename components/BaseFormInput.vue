@@ -8,7 +8,6 @@ const emit = defineEmits<{
 
 const props = defineProps({
   name: { type: String, required: true },
-  label: { type: String },
   type: { type: String as PropType<InputType>, default: 'text' },
   value: { type: [String, Number], default: '' },
 });

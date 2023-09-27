@@ -51,7 +51,6 @@ const formData = ref<FormData>(
 
       <BaseFormSelect
         v-else-if="inputDefinition.type === 'select'"
-        :label="inputDefinition.label"
         :name="inputDefinition.name"
         :value="formData[inputDefinition.name]"
         class="form__child"
@@ -60,7 +59,6 @@ const formData = ref<FormData>(
 
       <BaseFormInputPassword
         v-else-if="inputDefinition.type === 'password'"
-        :label="inputDefinition.label"
         :name="inputDefinition.name"
         :value="formData[inputDefinition.name]"
         class="form__child"
@@ -69,7 +67,6 @@ const formData = ref<FormData>(
 
       <BaseFormMarkdown
         v-else-if="inputDefinition.type === 'markdown'"
-        :label="inputDefinition.label"
         :name="inputDefinition.name"
         :value="formData[inputDefinition.name]"
         class="form__child"
@@ -78,7 +75,6 @@ const formData = ref<FormData>(
 
       <BaseFormInput
         v-else
-        :label="inputDefinition.label"
         :name="inputDefinition.name"
         :type="inputDefinition.type"
         :value="formData[inputDefinition.name]"

@@ -35,9 +35,9 @@ onMounted(() => $project.selectProject(projectId.value));
       <div v-if="title || goBack || $slots.actions" class="signed__title">
         <div class="signed__navigation">
           <div>
-            <BaseButton v-if="goBack" :to="goBack" flat compact>
+            <BaseButtonLink v-if="goBack" :to="goBack" flat compact>
               <BaseIcon icon="arrow_back" />Go back
-            </BaseButton>
+            </BaseButtonLink>
           </div>
           <div class="signed__title-actions">
             <slot name="actions" />

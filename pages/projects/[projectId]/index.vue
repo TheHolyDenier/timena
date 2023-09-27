@@ -21,7 +21,7 @@ const addElement = computed(
   })
 );
 
-const tabs: Tabs = [
+const tabs: Tabs[] = [
   { name: 'elements', label: 'Elements' },
   { name: 'events', label: 'Events' },
 ];
@@ -36,10 +36,10 @@ const tabs: Tabs = [
           <div class="project__item">
             <div class="project__item-nav">
               <h2>Elements</h2>
-              <BaseButton :to="addElement" compact>
+              <BaseButtonLink :to="addElement" compact>
                 <BaseIcon icon="add" />
                 Element
-              </BaseButton>
+              </BaseButtonLink>
             </div>
             <ElementTable :project-id="projectId" />
           </div>
@@ -48,10 +48,10 @@ const tabs: Tabs = [
           <div class="project__item">
             <div class="project__item-nav">
               <h2>Events</h2>
-              <BaseButton :to="addElement" compact>
+              <BaseButtonLink :to="addElement" compact>
                 <BaseIcon icon="add" />
                 Event
-              </BaseButton>
+              </BaseButtonLink>
             </div>
             Tata
           </div>

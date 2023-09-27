@@ -15,9 +15,9 @@ const { me } = storeToRefs(useUser());
     <div v-if="me">
       <div class="index__header">
         <h1>Your projects</h1>
-        <BaseButton :to="{ name: 'create-project' }" compact outline>
+        <BaseButtonLink :to="{ name: 'create-project' }" compact outline>
           <BaseIcon icon="add" /> Project
-        </BaseButton>
+        </BaseButtonLink>
       </div>
       <ProjectTable />
     </div>
