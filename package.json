@@ -16,7 +16,8 @@
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
     "prisma:migrate": "npx prisma migrate dev --name init",
-    "prisma:format": "npx prisma migrate dev --name init"
+    "prisma:format": "npx prisma migrate dev --name init",
+    "prisma:generate": "npx prisma generate"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

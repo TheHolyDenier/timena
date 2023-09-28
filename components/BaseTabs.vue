@@ -6,7 +6,19 @@ const props = defineProps({
   tabs: { type: Array as PropType<Tabs[]>, default: () => [] },
 });
 
-const selectedTab = ref<Tabs>(props.tabs[0]);
+const $route = useRoute();
+const $router = useRouter();
+
+const selectedTab = computed(() => {
+  return (
+    props.tabs.find((tab) => tab.name === String($route.query.tabs)) ||
+    props.tabs[0]
+  );
+});
+
+const selectTab = (tab: Tabs) => {
+  $router.replace({ query: { tabs: tab.name } });
+};
 </script>
 
 <template>
@@ -17,7 +29,7 @@ const selectedTab = ref<Tabs>(props.tabs[0]);
         :class="{ 'tabs__item--active': selectedTab.name === tab.name }"
         v-for="tab in tabs"
         :key="tab.name"
-        @click="selectedTab = tab"
+        @click="selectTab(tab)"
       >
         {{ tab.label }}
       </div>

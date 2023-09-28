@@ -28,10 +28,9 @@ const cellDefinitions: CellDefinition<ElementDto>[] = [
     type: 'boolean',
   },
   {
-    name: 'description',
-    title: 'Description',
-    field: 'description',
-    type: 'html',
+    name: 'summary',
+    title: 'Summary',
+    field: 'summary',
   },
   {
     name: 'id',

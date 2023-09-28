@@ -5,6 +5,8 @@ import { Type } from 'class-transformer';
 export class ElementDto extends BaseDto {
   name?: string;
 
+  summary?: string;
+
   description?: string;
 
   cover?: string;

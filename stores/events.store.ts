@@ -1,13 +1,13 @@
-import { ElementDto } from '~/utils/models/event/event.dto';
 import { api } from '~/plugins/di';
-import { CreateElementDto } from '~/utils/models/event/create-event.dto';
-import { UpdateElementDto } from '~/utils/models/event/update-event.dto';
+import { EventDto } from '~/utils/models/event/event.dto';
+import { CreateEventDto } from '~/utils/models/event/create-event.dto';
+import { UpdateEventDto } from '~/utils/models/event/update-event.dto';
 
 export const useEvent = defineStore('event', () => {
   const loading = ref(false);
-  const selectedEvent = ref<ElementDto | null>(null);
+  const selectedEvent = ref<EventDto | null>(null);
 
-  const create = async (eventId: string, body: CreateElementDto) => {
+  const create = async (eventId: string, body: CreateEventDto) => {
     loading.value = true;
     const event = await api.event.create(eventId, body);
     loading.value = false;
@@ -39,7 +39,7 @@ export const useEvent = defineStore('event', () => {
   const update = async (
     projectId: string,
     id: string,
-    body: UpdateElementDto
+    body: UpdateEventDto
   ) => {
     loading.value = true;
     const event = await api.event.update(projectId, id, body);

@@ -2,6 +2,7 @@
 import { PropType, ref, watch } from '@vue/runtime-core';
 import { InputType } from '~/utils/types/input.type';
 import { ELEMENT_TYPES } from '~/utils/models/element/ELEMENT_TYPES';
+import { OptionDefinition } from '~/utils/interfaces/option-definition.interface';
 
 const emit = defineEmits<{
   (e: 'on:update', value: string[]): void;
@@ -12,15 +13,23 @@ const props = defineProps({
   label: { type: String },
   type: { type: String as PropType<InputType>, default: 'text' },
   value: { type: [String, Number], default: '' },
+  isMultiple: { type: Boolean },
+  optionLoader: {
+    type: Function as PropType<
+      (inputValue?: string) => Promise<OptionDefinition[]>
+    >,
+  },
 });
 
 const modelValue = ref([]);
 const search = ref('');
 
+const optionsValues = ref<OptionDefinition[]>([]);
+
 const options = computed(() =>
   search.value === ''
-    ? ELEMENT_TYPES
-    : ELEMENT_TYPES.filter(
+    ? optionsValues.value
+    : optionsValues.value.filter(
         (option) =>
           option.value === search.value ||
           option.label.toLowerCase().includes(search.value.toLowerCase())
@@ -31,16 +40,23 @@ const displayOptions = ref(false);
 const optionsRef = ref<HTMLElement>(null);
 
 const optionAction = (optionValue: string) => {
+  if (!props.isMultiple && modelValue.value.length) modelValue.value.length = 0;
+
   const index = modelValue.value.findIndex((option) => option === optionValue);
+
   if (index === -1) modelValue.value.push(optionValue);
   else modelValue.value.splice(index, 1);
 };
 
 const className = computed(() => `select--${props.name}`);
 
-watch(modelValue, (value) => {
-  emit('on:update', value);
-});
+watch(
+  modelValue,
+  (value) => {
+    emit('on:update', props.isMultiple ? value : value[0]);
+  },
+  { deep: true }
+);
 
 const closeSelectListener = (event: Event) => {
   const target = event.target as HTMLElement;
@@ -49,14 +65,17 @@ const closeSelectListener = (event: Event) => {
   }
 };
 
-onMounted(() => document.addEventListener('click', closeSelectListener, false));
+onMounted(async () => {
+  document.addEventListener('click', closeSelectListener, false);
+  optionsValues.value = await props.optionLoader();
+});
 onBeforeUnmount(() => {
   document.removeEventListener('click', closeSelectListener, false);
 });
 </script>
 
 <template>
-  <div class="select">
+  <div v-if="optionsValues" class="select">
     <div class="select__tags">
       <BaseTag
         v-for="value of modelValue"

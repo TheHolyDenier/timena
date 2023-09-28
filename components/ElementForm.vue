@@ -5,6 +5,7 @@ import { ElementDto } from '~/utils/models/element/element.dto';
 import { InputDefinition } from '~/utils/interfaces/input-definition.interface';
 import { CreateElementDto } from '~/utils/models/element/create-element.dto';
 import { UpdateElementDto } from '~/utils/models/element/update-element.dto';
+import { ELEMENT_TYPES } from '~/utils/models/element/ELEMENT_TYPES';
 
 const $element = useElement();
 const $router = useRouter();
@@ -16,11 +17,17 @@ const props = defineProps({
 
 const inputDefinitions: InputDefinition[] = [
   { name: 'name', label: 'Name' },
+  { name: 'summary', label: 'Summary' },
   { name: 'description', label: 'Description', type: 'markdown' },
   { name: 'cover', label: 'Cover' },
   { name: 'isFavorite', label: 'Is favorite?', type: 'checkbox' },
   { name: 'exists', label: 'Exists?', type: 'checkbox' },
-  { name: 'type', label: 'Type', type: 'select' },
+  {
+    name: 'type',
+    label: 'Type',
+    type: 'select',
+    optionLoader: async () => ELEMENT_TYPES,
+  },
 ];
 
 const createElement = async (createElement: CreateElementDto) => {

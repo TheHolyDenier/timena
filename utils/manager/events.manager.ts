@@ -1,6 +1,7 @@
 import { getRouterParam, H3Event } from 'h3';
 import { prisma } from '~/server/api';
 import { notFoundError } from '~/errors/not-found.error';
+import { Event } from '@prisma/client';
 
 export class EventsManager {
   static getParamAndFind = async (h3Event: H3Event): Promise<Event> => {
@@ -29,7 +30,7 @@ export class EventsManager {
       where: {
         projectId: projectId,
       },
-      orderBy: [{ isFavorite: 'startDate' }, { name: 'asc' }],
+      orderBy: [{ startDate: 'asc' }, { title: 'asc' }],
     });
   };
 }

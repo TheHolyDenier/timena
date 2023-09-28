@@ -1,4 +1,5 @@
 import { InputType } from '~/utils/types/input.type';
+import { OptionDefinition } from '~/utils/interfaces/option-definition.interface';
 
 export interface InputDefinition {
   name: string;
@@ -8,4 +9,8 @@ export interface InputDefinition {
   type?: InputType;
 
   required?: boolean;
+
+  isMultiple?: boolean;
+
+  optionLoader?: (inputValue?: string) => Promise<OptionDefinition[]>;
 }

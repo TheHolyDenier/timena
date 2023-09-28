@@ -21,6 +21,13 @@ const addElement = computed(
   })
 );
 
+const addEvent = computed(
+  (): RouteLocationRaw => ({
+    name: 'projects-projectId-events-create',
+    params: { projectId: projectId.value },
+  })
+);
+
 const tabs: Tabs[] = [
   { name: 'elements', label: 'Elements' },
   { name: 'events', label: 'Events' },
@@ -48,12 +55,12 @@ const tabs: Tabs[] = [
           <div class="project__item">
             <div class="project__item-nav">
               <h2>Events</h2>
-              <BaseButtonLink :to="addElement" compact>
+              <BaseButtonLink :to="addEvent" compact>
                 <BaseIcon icon="add" />
                 Event
               </BaseButtonLink>
             </div>
-            Tata
+            <EventTable />
           </div>
         </template>
       </BaseTabs>

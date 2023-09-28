@@ -50,8 +50,10 @@ const formData = ref<FormData>(
       />
 
       <BaseFormSelect
+        :is="inputDefinition.isMultiple"
         v-else-if="inputDefinition.type === 'select'"
         :name="inputDefinition.name"
+        :option-loader="inputDefinition.optionLoader"
         :value="formData[inputDefinition.name]"
         class="form__child"
         @on:update="formData[inputDefinition.name] = $event"

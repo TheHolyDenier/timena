@@ -17,7 +17,7 @@ const elementId = computed(() => $route.params.elementId);
 const projectId = computed(() => $route.params.projectId);
 const goBack: RouteLocationRaw = {
   name: 'projects-projectId',
-  params: { projectId: $route.params.projectId },
+  params: { projectId: projectId.value },
 };
 
 watch(elementId, (value) => {
@@ -38,7 +38,7 @@ onMounted(() => $element.selectElement(projectId.value, elementId.value));
         compact
         outline
       >
-        <BaseIcon icon="add" /> Edit
+        <BaseIcon icon="edit" /> Edit
       </BaseButtonLink>
     </template>
 
@@ -48,9 +48,14 @@ onMounted(() => $element.selectElement(projectId.value, elementId.value));
         <BaseImage :src="selectedElement.cover" :alt="selectedElement.name" />
         <div class="element__content">
           <h1 class="element__name">{{ selectedElement.name }}</h1>
+          <small>{{ selectedElement.summary }}</small>
           <div class="element__tags">
             <BaseTag v-if="selectedElement.isFavorite" label="Favorite" />
             <BaseTag v-if="selectedElement.exists" label="Exists" />
+            <BaseTag
+              v-if="selectedElement.type"
+              :label="selectedElement.type"
+            />
           </div>
           <div v-html="selectedElement.description"></div>
         </div>

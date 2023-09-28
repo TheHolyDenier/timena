@@ -5,6 +5,9 @@ export class CreateElementDto {
   name?: string;
 
   @Expose()
+  summary?: string;
+
+  @Expose()
   description?: string;
 
   @Expose()
