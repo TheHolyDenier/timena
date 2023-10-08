@@ -3,10 +3,7 @@ import { User } from '.prisma/client';
 import { prisma } from './index';
 import { ApiResponse } from '~/utils/interfaces/api-response';
 import { SignUpDto } from '~/utils/models/auth/sign-up.dto';
-import {
-  getStatusCode,
-  StatusMessageEnum,
-} from '~/utils/enums/status-message.enum';
+import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { hashPassword } from '~/utils/password.util';
 
 export default defineEventHandler(
@@ -20,8 +17,8 @@ export default defineEventHandler(
 
     if (emailExists || usernameExists) {
       throw createError({
-        statusCode: getStatusCode(StatusMessageEnum.BAD_REQUEST),
-        statusMessage: StatusMessageEnum.BAD_REQUEST,
+        statusCode: getStatusCode(StatusMessage.BAD_REQUEST),
+        statusMessage: StatusMessage.BAD_REQUEST,
         message: emailExists
           ? `Email already exists`
           : `Username already exists`,
@@ -36,8 +33,8 @@ export default defineEventHandler(
       },
     });
     return {
-      statusCode: getStatusCode(StatusMessageEnum.OK),
-      statusMessage: StatusMessageEnum.OK,
+      statusCode: getStatusCode(StatusMessage.OK),
+      statusMessage: StatusMessage.OK,
       data: user,
     };
   }

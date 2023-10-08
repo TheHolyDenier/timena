@@ -2,10 +2,7 @@ import { H3Event } from 'h3';
 import { User } from '@prisma/client';
 import { prisma } from '~/server/api';
 import { hashPassword } from '~/utils/password.util';
-import {
-  getStatusCode,
-  StatusMessageEnum,
-} from '~/utils/enums/status-message.enum';
+import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { ApiResponse } from '~/utils/interfaces/api-response';
 
 export default defineEventHandler(
@@ -20,8 +17,8 @@ export default defineEventHandler(
     }
 
     return {
-      statusCode: getStatusCode(StatusMessageEnum.OK),
-      statusMessage: StatusMessageEnum.OK,
+      statusCode: getStatusCode(StatusMessage.OK),
+      statusMessage: StatusMessage.OK,
       data: await prisma.user.update({ where: { id: user.id }, data: body }),
     };
   }

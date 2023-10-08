@@ -1,12 +1,31 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { useUser } from '~/stores/user.store';
 import { ApiResponse } from '~/utils/interfaces/api-response';
+import { Request } from '~/utils/interfaces/request';
+import { SearchParameters } from 'ofetch';
 
 export const useBaseService = <T, C = null, U = null>(
   Dto: ClassConstructor<T>,
   CreateDto?: ClassConstructor<C>,
   UpdateDto?: ClassConstructor<U>
 ) => {
+  const parseRequest = (request: Request): SearchParameters => {
+    const parsed: SearchParameters = {};
+
+    if (request.orderBy?.length) {
+      parsed.orderBy = [];
+      for (const orderBy of request.orderBy) {
+        parsed.orderBy.push({ [orderBy.field]: orderBy.order });
+      }
+    }
+
+    if (!request.page) parsed.page = 1;
+
+    if (!request.elementsPerPage) parsed.elementsPerPage = 10;
+
+    return parsed;
+  };
+
   const create = CreateDto
     ? async (baseUrl: string, body: C): Promise<T> => {
         const user = useUser();
@@ -49,7 +68,7 @@ export const useBaseService = <T, C = null, U = null>(
       }
     : null;
 
-  const get = async (baseUrl: string): Promise<T[]> => {
+  const get = async (baseUrl: string, request: Request = {}): Promise<T[]> => {
     const user = useUser();
 
     const result = await $fetch(baseUrl, {
@@ -58,6 +77,7 @@ export const useBaseService = <T, C = null, U = null>(
         'Content-Type': 'application/json',
         Authorization: user.token(),
       } as HeadersInit,
+      params: parseRequest(request),
     });
 
     return ((result as ApiResponse<T>).data as T[]).map((item) =>

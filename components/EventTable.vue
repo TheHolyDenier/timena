@@ -7,10 +7,18 @@ import { EventDto } from '~/utils/models/event/event.dto';
 const $event = useEvent();
 const $route = useRoute();
 
-const projectId = computed(() => $route.params.projectId);
+const projectId = computed(() => String($route.params.projectId));
 const events = ref<EventDto[]>([]);
 
-onMounted(async () => (events.value = await $event.get(projectId.value)));
+onMounted(
+  async () =>
+    (events.value = await $event.get(projectId.value, {
+      orderBy: [
+        { field: 'startDate', order: 'asc' },
+        { field: 'title', order: 'asc' },
+      ],
+    }))
+);
 
 const cellDefinitions: CellDefinition<EventDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },

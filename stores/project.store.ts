@@ -2,6 +2,7 @@ import { api } from '~/plugins/di';
 import { CreateProjectDto } from '~/utils/models/project/create-project.dto';
 import { ProjectDto } from '~/utils/models/project/project.dto';
 import { UpdateProjectDto } from '~/utils/models/project/update-project.dto';
+import { Request } from '~/utils/interfaces/request';
 
 export const useProject = defineStore('project', () => {
   const loading = ref(false);
@@ -15,9 +16,9 @@ export const useProject = defineStore('project', () => {
     return project;
   };
 
-  const get = async () => {
+  const get = async (request?: Request) => {
     loading.value = true;
-    const projects = await api.project.get();
+    const projects = await api.project.get(request);
     loading.value = false;
     return projects;
   };

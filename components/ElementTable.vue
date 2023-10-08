@@ -7,10 +7,18 @@ import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 const $element = useElement();
 const $route = useRoute();
 
-const projectId = computed(() => $route.params.projectId);
+const projectId = computed(() => String($route.params.projectId));
 const elements = ref<ElementDto[]>([]);
 
-onMounted(async () => (elements.value = await $element.get(projectId.value)));
+onMounted(
+  async () =>
+    (elements.value = await $element.get(projectId.value, {
+      orderBy: [
+        { field: 'isFavorite', order: 'asc' },
+        { field: 'name', order: 'asc' },
+      ],
+    }))
+);
 
 const cellDefinitions: CellDefinition<ElementDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },

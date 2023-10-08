@@ -1,6 +1,7 @@
 import { getRouterParam, H3Event } from 'h3';
 import { prisma } from '~/server/api';
 import { notFoundError } from '~/errors/not-found.error';
+import { Prisma } from '.prisma/client';
 
 export class ElementsManager {
   static getParamAndFind = async (event: H3Event): Promise<Element> => {
@@ -24,12 +25,13 @@ export class ElementsManager {
     });
   };
 
-  static findMany = async (projectId: string): Promise<Element[]> => {
-    return prisma.element.findMany({
-      where: {
-        projectId: projectId,
-      },
-      orderBy: [{ isFavorite: 'asc' }, { name: 'asc' }],
-    });
+  static findMany = async (
+    projectId: string,
+    query = {}
+  ): Promise<Element[]> => {
+    if (!query.where) query.where = {};
+    query.where.projectId = projectId;
+
+    return prisma.element.findMany(query);
   };
 }

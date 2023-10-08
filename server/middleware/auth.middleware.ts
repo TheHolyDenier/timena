@@ -1,9 +1,6 @@
 import { prisma } from '~/server/api';
 import { H3Event } from 'h3';
-import {
-  getStatusCode,
-  StatusMessageEnum,
-} from '~/utils/enums/status-message.enum';
+import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 
 export default defineEventHandler(async (event: H3Event) => {
   if (event.node.req.url?.includes('secure')) {
@@ -11,9 +8,9 @@ export default defineEventHandler(async (event: H3Event) => {
 
     if (!authorization) {
       throw createError({
-        statusCode: getStatusCode(StatusMessageEnum.UNAUTHORIZED),
-        statusMessage: StatusMessageEnum.UNAUTHORIZED,
-        message: StatusMessageEnum.UNAUTHORIZED,
+        statusCode: getStatusCode(StatusMessage.UNAUTHORIZED),
+        statusMessage: StatusMessage.UNAUTHORIZED,
+        message: StatusMessage.UNAUTHORIZED,
       });
     }
 

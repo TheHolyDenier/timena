@@ -1,0 +1,16 @@
+export enum FilterOperator {
+  EQUALS = 'equals',
+  NOT = 'not',
+  IN = 'in',
+  NOT_IN = 'notIn',
+  LESS_THAN = 'lt',
+  LESS_OR_EQUAL = 'lte',
+  GREATER_THAN = 'gt',
+  GREATER_OR_EQUAL = 'gte',
+  CONTAINS = 'contains',
+  SOME = 'some',
+  EVERY = 'every',
+  NONE = 'none',
+  IS = 'is',
+  IS_NOT = 'isNot',
+}

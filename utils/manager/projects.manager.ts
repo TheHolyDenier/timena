@@ -28,16 +28,15 @@ export class ProjectsManager {
     });
   };
 
-  static findMany = async (user: User) => {
-    return prisma.project.findMany({
-      where: {
-        OR: [
-          { createdById: { equals: user.id } },
-          { projectOnUser: { some: { userId: user.id } } },
-        ],
-      },
-      include: { projectOnUser: true },
-      orderBy: [{ isFavorite: 'asc' }, { title: 'asc' }],
-    });
+  static findMany = async (user: User, query = {}) => {
+    if (!query.include) query.include = {};
+    query.include.projectOnUser = true;
+
+    if (!query.where) query.where = {};
+    if (!query.where.OR) query.where.OR = [];
+    query.where.OR.push({ createdById: { equals: user.id } });
+    query.where.OR.push({ projectOnUser: { some: { userId: user.id } } });
+
+    return prisma.project.findMany(query);
   };
 }

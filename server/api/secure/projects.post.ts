@@ -1,9 +1,6 @@
 import { defineEventHandler, H3Event, readBody } from 'h3';
 import { Project } from '@prisma/client';
-import {
-  getStatusCode,
-  StatusMessageEnum,
-} from '~/utils/enums/status-message.enum';
+import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { ApiResponse } from '~/utils/interfaces/api-response';
 import { prisma } from '../index';
 
@@ -22,8 +19,8 @@ export default defineEventHandler(
     });
 
     return {
-      statusCode: getStatusCode(StatusMessageEnum.OK),
-      statusMessage: StatusMessageEnum.OK,
+      statusCode: getStatusCode(StatusMessage.OK),
+      statusMessage: StatusMessage.OK,
       data: project,
     };
   }

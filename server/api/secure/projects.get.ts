@@ -1,9 +1,6 @@
 import { H3Event } from 'h3';
 import { Project } from '@prisma/client';
-import {
-  getStatusCode,
-  StatusMessageEnum,
-} from '~/utils/enums/status-message.enum';
+import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { ApiResponse } from '~/utils/interfaces/api-response';
 import { ProjectsManager } from '~/utils/manager/projects.manager';
 
@@ -12,9 +9,9 @@ export default defineEventHandler(
     const user = event.context.user;
 
     return {
-      statusCode: getStatusCode(StatusMessageEnum.OK),
-      statusMessage: StatusMessageEnum.OK,
-      data: await ProjectsManager.findMany(user),
+      statusCode: getStatusCode(StatusMessage.OK),
+      statusMessage: StatusMessage.OK,
+      data: await ProjectsManager.findMany(user, event.context.query),
     };
   }
 );

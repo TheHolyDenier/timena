@@ -1,11 +1,8 @@
 import { defineEventHandler, H3Event, readBody } from 'h3';
 import { ProjectsManager } from '~/utils/manager/projects.manager';
-import { ApiMethodsEnum } from '~/utils/enums/api-methods.enum';
+import { ApiMethods } from '~/utils/enums/api-methods';
 import { notFoundError } from '~/errors/not-found.error';
-import {
-  getStatusCode,
-  StatusMessageEnum,
-} from '~/utils/enums/status-message.enum';
+import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { prisma } from '~/server/api';
 import { ElementsManager } from '~/utils/manager/elements.manager';
 import { Project } from '@prisma/client';
@@ -14,20 +11,20 @@ export default defineEventHandler(async (event: H3Event) => {
   const project = await ProjectsManager.getParamAndFind(event);
 
   switch (event.context.method) {
-    case ApiMethodsEnum.GET:
-      return getElements(project);
-    case ApiMethodsEnum.POST:
+    case ApiMethods.GET:
+      return getElements(project, event.context.query);
+    case ApiMethods.POST:
       return postElement(event, project);
     default:
       throw notFoundError();
   }
 });
 
-const getElements = async (project: Project) => {
+const getElements = async (project: Project, query: unknown) => {
   return {
-    statusCode: getStatusCode(StatusMessageEnum.OK),
-    statusMessage: StatusMessageEnum.OK,
-    data: await ElementsManager.findMany(project.id),
+    statusCode: getStatusCode(StatusMessage.OK),
+    statusMessage: StatusMessage.OK,
+    data: await ElementsManager.findMany(project.id, query),
   };
 };
 
@@ -46,8 +43,8 @@ const postElement = async (event: H3Event, project: Project) => {
   });
 
   return {
-    statusCode: getStatusCode(StatusMessageEnum.OK),
-    statusMessage: StatusMessageEnum.OK,
+    statusCode: getStatusCode(StatusMessage.OK),
+    statusMessage: StatusMessage.OK,
     data: element,
   };
 };

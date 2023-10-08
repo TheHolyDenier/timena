@@ -8,7 +8,12 @@ const $project = useProject();
 const projects = ref<ProjectDto[]>([]);
 
 onMounted(async () => {
-  projects.value = await $project.get();
+  projects.value = await $project.get({
+    orderBy: [
+      { field: 'isFavorite', order: 'asc' },
+      { field: 'title', order: 'asc' },
+    ],
+  });
 });
 
 const cellDefinitions: CellDefinition<ProjectDto>[] = [

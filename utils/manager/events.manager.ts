@@ -25,12 +25,10 @@ export class EventsManager {
     });
   };
 
-  static findMany = async (projectId: string): Promise<Event[]> => {
-    return prisma.event.findMany({
-      where: {
-        projectId: projectId,
-      },
-      orderBy: [{ startDate: 'asc' }, { title: 'asc' }],
-    });
+  static findMany = async (projectId: string, query = {}): Promise<Event[]> => {
+    if (!query.where) query.where = {};
+    query.where.projectId = projectId;
+
+    return prisma.event.findMany(query);
   };
 }
