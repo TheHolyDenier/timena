@@ -10,6 +10,7 @@ export type IconType =
   | 'home'
   | 'format_quote'
   | 'format_bold'
+  | 'format_paragraph'
   | 'image'
   | 'iron'
   | 'link'

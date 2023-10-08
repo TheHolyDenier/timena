@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { EditorContent, useEditor } from '@tiptap/vue-3';
-import Heading from '@tiptap/extension-heading';
-import Paragraph from '@tiptap/extension-paragraph';
-import Document from '@tiptap/extension-document';
-import Text from '@tiptap/extension-text';
+import { Heading } from '@tiptap/extension-heading';
+import { Paragraph } from '@tiptap/extension-paragraph';
+import { Document } from '@tiptap/extension-document';
+import { Text } from '@tiptap/extension-text';
 import { Blockquote } from '@tiptap/extension-blockquote';
 import { Bold } from '@tiptap/extension-bold';
 import { History } from '@tiptap/extension-history';
@@ -12,6 +12,11 @@ import { BulletList } from '@tiptap/extension-bullet-list';
 import { ListItem } from '@tiptap/extension-list-item';
 import { PropType } from '@vue/runtime-core';
 import { InputType } from '~/utils/types/input.type';
+import { Dropcursor } from '@tiptap/extension-dropcursor';
+import { FileHandler } from '@tiptap-pro/extension-file-handler';
+import { Editor } from '@tiptap/core';
+import { Gapcursor } from '@tiptap/extension-gapcursor';
+import { InvisibleCharacters } from '@tiptap-pro/extension-invisible-characters';
 
 // TODO: https://tiptap.dev/api/nodes/mention
 
@@ -40,6 +45,57 @@ const editor = useEditor({
     }),
     Blockquote,
     History,
+    Dropcursor,
+    Gapcursor,
+    InvisibleCharacters,
+    FileHandler.configure({
+      allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+      onDrop: (currentEditor: Editor, files: File[], pos: number) => {
+        files.forEach((file) => {
+          const fileReader = new FileReader();
+
+          fileReader.readAsDataURL(file);
+          fileReader.onload = () => {
+            currentEditor
+              .chain()
+              .insertContentAt(pos, {
+                type: 'image',
+                attrs: {
+                  src: fileReader.result,
+                },
+              })
+              .focus()
+              .run();
+          };
+        });
+      },
+      onPaste: (currentEditor, files, htmlContent) => {
+        files.forEach((file) => {
+          if (htmlContent) {
+            // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+            // you could extract the pasted file from this url string and upload it to a server for example
+            console.log(htmlContent); // eslint-disable-line no-console
+            return false;
+          }
+
+          const fileReader = new FileReader();
+
+          fileReader.readAsDataURL(file);
+          fileReader.onload = () => {
+            currentEditor
+              .chain()
+              .insertContentAt(currentEditor.state.selection.anchor, {
+                type: 'image',
+                attrs: {
+                  src: fileReader.result,
+                },
+              })
+              .focus()
+              .run();
+          };
+        });
+      },
+    }),
   ],
   onUpdate: ({ editor }) => {
     $emit('on:update', editor.getHTML());
@@ -88,6 +144,16 @@ const editor = useEditor({
         @click="editor.chain().focus().toggleBulletList().run()"
       >
         <BaseIcon icon="format_list_bulleted" />
+      </BaseButton>
+      <BaseButton
+        :class="{
+          'editor__action--active':
+            editor.storage.invisibleCharacters.visibility(),
+        }"
+        class="editor__action"
+        @click="editor.commands.toggleInvisibleCharacters()"
+      >
+        <BaseIcon icon="format_paragraph" />
       </BaseButton>
     </div>
     <EditorContent :editor="editor" />

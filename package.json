@@ -37,6 +37,9 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "^5.3.1",
+    "@tiptap-pro/extension-file-handler": "^2.3.1",
+    "@tiptap-pro/extension-invisible-characters": "^2.3.1",
+    "@tiptap-pro/extension-unique-id": "^2.3.1",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/starter-kit": "^2.1.11",
     "@tiptap/vue-3": "^2.1.11",
