@@ -3,6 +3,7 @@ import BodyLayout from '~/layouts/body-layout.vue';
 import { RouteLocationRaw } from 'vue-router';
 import { useElement } from '~/stores/elements.store';
 import { storeToRefs } from 'pinia';
+import BaseHtmlView from '~/components/BaseHtmlView.vue';
 
 definePageMeta({
   middleware: ['signed'],
@@ -57,7 +58,7 @@ onMounted(() => $element.selectElement(projectId.value, elementId.value));
               :label="selectedElement.type"
             />
           </div>
-          <div v-html="selectedElement.description"></div>
+          <BaseHtmlView :html-string="selectedElement.description" />
         </div>
       </div>
     </div>

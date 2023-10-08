@@ -15,9 +15,9 @@ export const useElement = defineStore('element', () => {
     return element;
   };
 
-  const get = async (elementId: string) => {
+  const get = async (projectId: string) => {
     loading.value = true;
-    const elements = await api.element.get(elementId);
+    const elements = await api.element.get(projectId);
     loading.value = false;
     return elements;
   };

@@ -37,11 +37,12 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "^5.3.1",
-    "@tiptap-pro/extension-file-handler": "^2.3.1",
     "@tiptap-pro/extension-invisible-characters": "^2.3.1",
     "@tiptap-pro/extension-unique-id": "^2.3.1",
+    "@tiptap/extension-mention": "^2.1.11",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/starter-kit": "^2.1.11",
+    "@tiptap/suggestion": "^2.1.11",
     "@tiptap/vue-3": "^2.1.11",
     "@types/lodash": "^4.14.198",
     "bcrypt": "^5.1.1",
@@ -49,6 +50,7 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "pinia": "^2.1.6",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "tippy.js": "^6.3.7"
   }
 }

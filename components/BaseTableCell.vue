@@ -4,6 +4,7 @@ import { BaseDto } from '~/utils/models/base.dto';
 import { RouteLocationRaw } from 'vue-router';
 import { PropType } from '@vue/runtime-core';
 import BaseTag from '~/components/BaseTag.vue';
+import BaseHtmlView from '~/components/BaseHtmlView.vue';
 
 const props = defineProps({
   cellDefinition: {
@@ -44,7 +45,10 @@ const to = computed<undefined | string | RouteLocationRaw>(() => {
     <BaseIcon icon="link" />
   </RouterLink>
   <BaseTag v-else-if="cellDefinition.type === 'tag'" :label="value" />
-  <span v-else-if="cellDefinition.type === 'html'" v-html="value"> </span>
+  <BaseHtmlView
+    v-else-if="cellDefinition.type === 'html'"
+    :html-string="value"
+  />
   <span v-else> {{ value }} </span>
 </template>
 

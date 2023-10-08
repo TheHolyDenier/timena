@@ -13,10 +13,10 @@ import { ListItem } from '@tiptap/extension-list-item';
 import { PropType } from '@vue/runtime-core';
 import { InputType } from '~/utils/types/input.type';
 import { Dropcursor } from '@tiptap/extension-dropcursor';
-import { FileHandler } from '@tiptap-pro/extension-file-handler';
-import { Editor } from '@tiptap/core';
 import { Gapcursor } from '@tiptap/extension-gapcursor';
 import { InvisibleCharacters } from '@tiptap-pro/extension-invisible-characters';
+import { Mention } from '@tiptap/extension-mention';
+import { useMentionSuggestion } from '~/composables/mention-suggestion';
 
 // TODO: https://tiptap.dev/api/nodes/mention
 
@@ -48,53 +48,11 @@ const editor = useEditor({
     Dropcursor,
     Gapcursor,
     InvisibleCharacters,
-    FileHandler.configure({
-      allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
-      onDrop: (currentEditor: Editor, files: File[], pos: number) => {
-        files.forEach((file) => {
-          const fileReader = new FileReader();
-
-          fileReader.readAsDataURL(file);
-          fileReader.onload = () => {
-            currentEditor
-              .chain()
-              .insertContentAt(pos, {
-                type: 'image',
-                attrs: {
-                  src: fileReader.result,
-                },
-              })
-              .focus()
-              .run();
-          };
-        });
+    Mention.configure({
+      HTMLAttributes: {
+        class: 'editor__mention',
       },
-      onPaste: (currentEditor, files, htmlContent) => {
-        files.forEach((file) => {
-          if (htmlContent) {
-            // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
-            // you could extract the pasted file from this url string and upload it to a server for example
-            console.log(htmlContent); // eslint-disable-line no-console
-            return false;
-          }
-
-          const fileReader = new FileReader();
-
-          fileReader.readAsDataURL(file);
-          fileReader.onload = () => {
-            currentEditor
-              .chain()
-              .insertContentAt(currentEditor.state.selection.anchor, {
-                type: 'image',
-                attrs: {
-                  src: fileReader.result,
-                },
-              })
-              .focus()
-              .run();
-          };
-        });
-      },
+      suggestion: useMentionSuggestion(),
     }),
   ],
   onUpdate: ({ editor }) => {
@@ -172,6 +130,13 @@ const editor = useEditor({
     &--active {
       background-color: gray;
     }
+  }
+
+  &__mention {
+    border: 1px solid #000;
+    border-radius: 0.4rem;
+    padding: 0.1rem 0.3rem;
+    box-decoration-break: clone;
   }
 }
 
