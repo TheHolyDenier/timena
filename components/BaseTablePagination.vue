@@ -3,9 +3,9 @@ const $route = useRoute();
 const $router = useRouter();
 
 const props = defineProps({
-  activePage: { type: Number },
-  elementsPerPage: { type: Number },
-  totalResponse: { type: Number },
+  activePage: { type: Number, default: 0 },
+  elementsPerPage: { type: Number, default: 0 },
+  totalResponse: { type: Number, default: 0 },
 });
 
 const totalPages = computed(() => {

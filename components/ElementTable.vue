@@ -16,6 +16,14 @@ const projectId = computed(() =>
 const getData = async (request: PrismaRequest) => {
   const req = cloneDeep(request);
   req.orderBy = [{ isFavorite: 'asc' }, { name: 'asc' }];
+  req.select = {
+    id: true,
+    name: true,
+    summary: true,
+    cover: true,
+    isFavorite: true,
+    exists: true,
+  };
 
   return $element.get(projectId.value!, req);
 };

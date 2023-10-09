@@ -29,11 +29,7 @@ export class ElementsManager {
     return prisma.element.findMany(query);
   };
 
-  static count = async ({
-    take,
-    skip,
-    ...query
-  }: PrismaRequest = {}): Promise<number> => {
-    return prisma.element.count(query);
+  static count = async ({ where }: PrismaRequest = {}): Promise<number> => {
+    return prisma.element.count({ where: where });
   };
 }

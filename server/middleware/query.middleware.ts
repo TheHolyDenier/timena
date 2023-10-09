@@ -20,13 +20,11 @@ export default defineEventHandler((event: H3Event) => {
     query.orderBy = orderBy.map((element) => JSON.parse(element.value));
   }
 
-  const where = decodedQuery.filter((query) => query.key === 'where');
-  if (where.length) {
-    query.where = {};
-    for (const condition of where) {
-      Object.assign(query.where, JSON.parse(condition.value));
-    }
-  }
+  const where = decodedQuery.find((query) => query.key === 'where');
+  if (where) query.where = JSON.parse(where.value);
+
+  const select = decodedQuery.find((query) => query.key === 'select');
+  if (select) query.select = JSON.parse(select.value);
 
   const page = decodedQuery.find((element) => element.key === 'page')?.value;
   const elementsPerPage = decodedQuery.find(

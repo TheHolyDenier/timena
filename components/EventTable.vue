@@ -16,6 +16,13 @@ const projectId = computed(() =>
 const getData = async (request: PrismaRequest) => {
   const req = cloneDeep(request);
   req.orderBy = [{ startDate: 'asc' }, { title: 'asc' }];
+  req.select = {
+    id: true,
+    cover: true,
+    title: true,
+    startDate: true,
+    endDate: true,
+  };
 
   return $event.get(projectId.value!, req);
 };

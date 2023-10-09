@@ -30,11 +30,7 @@ export class EventsManager {
     return prisma.event.findMany(query);
   };
 
-  static count = async ({
-    take,
-    skip,
-    ...query
-  }: PrismaRequest = {}): Promise<number> => {
-    return prisma.event.count(query);
+  static count = async ({ where }: PrismaRequest = {}): Promise<number> => {
+    return prisma.event.count({ where: where });
   };
 }
