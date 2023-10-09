@@ -11,7 +11,9 @@ definePageMeta({
 const $route = useRoute();
 const $router = useRouter();
 
-const projectId = computed(() => String($route.params.projectId));
+const projectId = computed(() =>
+  $route.params.projectId ? String($route.params.projectId) : null
+);
 
 const $project = useProject();
 const { selectedProject, loading } = storeToRefs($project);

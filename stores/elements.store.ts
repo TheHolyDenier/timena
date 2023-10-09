@@ -17,6 +17,7 @@ export const useElement = defineStore('element', () => {
   };
 
   const get = async (projectId: string, request?: Request) => {
+    if (!projectId) return null;
     loading.value = true;
     const elements = await api.element.get(projectId, request);
     loading.value = false;

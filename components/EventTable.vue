@@ -7,15 +7,14 @@ import { EventDto } from '~/utils/models/event/event.dto';
 const $event = useEvent();
 const $route = useRoute();
 
-const projectId = computed(() => String($route.params.projectId));
-const events = ref<EventDto[]>([]);
-
-onMounted(
-  async () =>
-    (events.value = await $event.get(projectId.value, {
-      orderBy: [{ startDate: 'asc' }, { title: 'asc' }],
-    }))
+const projectId = computed(() =>
+  $route.params.projectId ? String($route.params.projectId) : null
 );
+
+const getData = async () =>
+  $event.get(projectId.value!, {
+    orderBy: [{ startDate: 'asc' }, { title: 'asc' }],
+  });
 
 const cellDefinitions: CellDefinition<EventDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },
@@ -35,7 +34,7 @@ const cellDefinitions: CellDefinition<EventDto>[] = [
 </script>
 
 <template>
-  <BaseTable :cell-definitions="cellDefinitions" :data="events" />
+  <BaseTable :cell-definitions="cellDefinitions" :get-data="getData" />
 </template>
 
 <style scoped lang="scss"></style>

@@ -12,8 +12,12 @@ const $route = useRoute();
 const $element = useElement();
 const { selectedElement, loading } = storeToRefs($element);
 
-const projectId = computed(() => String($route.params.projectId));
-const elementId = computed(() => String($route.params.elementId));
+const projectId = computed(() =>
+  $route.params.projectId ? String($route.params.projectId) : null
+);
+const elementId = computed(() =>
+  $route.params.elementId ? String($route.params.elementId) : null
+);
 
 const editRoute = computed(() => ({
   name: 'projects-projectId-elements-elementId',

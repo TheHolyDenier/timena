@@ -3,6 +3,7 @@ import { getRouterParam, H3Event } from 'h3';
 import { prisma } from '~/server/api';
 import { notFoundError } from '~/errors/not-found.error';
 import { Request } from '~/utils/interfaces/request';
+import merge from 'lodash';
 
 export class ProjectsManager {
   static getParamAndFind = async (event: H3Event): Promise<Project> => {
@@ -33,11 +34,7 @@ export class ProjectsManager {
     return prisma.project.findMany(query);
   };
 
-  static count = async ({
-    take,
-    skip,
-    ...query
-  }: Request = {}): Promise<number> => {
-    return prisma.element.count(query);
+  static count = async ({ where }: Request = {}): Promise<number> => {
+    return prisma.project.count({ where });
   };
 }

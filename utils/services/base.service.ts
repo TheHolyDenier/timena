@@ -62,10 +62,13 @@ export const useBaseService = <T, C = null, U = null>(
       }
     : null;
 
-  const get = async (baseUrl: string, request: Request = {}): Promise<T[]> => {
+  const get = async (
+    baseUrl: string,
+    request: Request = {}
+  ): Promise<ApiResponse<T>> => {
     const user = useUser();
 
-    const result = await $fetch(baseUrl, {
+    const result = await $fetch<ApiResponse<T>>(baseUrl, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -74,9 +77,11 @@ export const useBaseService = <T, C = null, U = null>(
       params: parseRequest(request),
     });
 
-    return ((result as ApiResponse<T>).data as T[]).map((item) =>
+    result.data = (result.data as T[]).map((item) =>
       plainToInstance(Dto, item)
     );
+
+    return result;
   };
 
   const getOne = async (baseUrl: string): Promise<T> => {

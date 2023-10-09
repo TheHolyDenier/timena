@@ -35,6 +35,6 @@ export class EventsManager {
     skip,
     ...query
   }: Request = {}): Promise<number> => {
-    return prisma.element.count(query);
+    return prisma.event.count(query);
   };
 }

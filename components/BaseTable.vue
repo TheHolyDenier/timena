@@ -3,19 +3,26 @@ import { PropType } from '@vue/runtime-core';
 import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 import BaseTableCell from '~/components/BaseTableCell.vue';
 import { BaseDto } from '~/utils/models/base.dto';
+import { ApiResponse } from '~/utils/interfaces/api-response';
 
-defineProps({
+const props = defineProps({
   cellDefinitions: {
-    type: Array as PropType<CellDefinition<BaseDto>[]>,
+    type: Array as PropType<CellDefinition<Partial<BaseDto>>[]>,
     default: () => [],
   },
-  data: { type: Array as PropType<BaseDto[]>, default: () => [] },
+  getData: {
+    type: Function as PropType<() => Promise<ApiResponse<Partial<BaseDto>>>>,
+    required: true,
+  },
 });
+
+const response = ref<ApiResponse<Partial<BaseDto>>>({ data: [] });
+onMounted(async () => (response.value = await props.getData()));
 </script>
 
 <template>
   <table class="table">
-    <tr class="table__row table__row--first">
+    <tr class="table__row table__row--header">
       <th
         class="table__title"
         v-for="cellDefinition of cellDefinitions"
@@ -24,12 +31,13 @@ defineProps({
         {{ cellDefinition.title }}
       </th>
     </tr>
-    <tr v-for="element of data" :key="element.id" class="table__row">
+    <tr v-for="element of response.data" :key="element.id" class="table__row">
       <td v-for="cellDefinition of cellDefinitions" :key="cellDefinitions">
         <BaseTableCell :cell-definition="cellDefinition" :data="element" />
       </td>
     </tr>
   </table>
+  <!--  TODO: pagination-->
 </template>
 
 <style scoped lang="scss">
@@ -38,11 +46,6 @@ defineProps({
   border-spacing: 1em;
   margin: 25px 0;
   width: 100%;
-
-  &__row {
-    &--first {
-    }
-  }
 
   &__title {
     text-transform: uppercase;

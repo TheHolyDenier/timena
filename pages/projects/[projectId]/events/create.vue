@@ -8,7 +8,9 @@ definePageMeta({
 
 const $route = useRoute();
 
-const projectId = computed(() => String($route.params.projectId));
+const projectId = computed(() =>
+  $route.params.projectId ? String($route.params.projectId) : null
+);
 </script>
 
 <template>

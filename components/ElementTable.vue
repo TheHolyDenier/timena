@@ -7,15 +7,14 @@ import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 const $element = useElement();
 const $route = useRoute();
 
-const projectId = computed(() => String($route.params.projectId));
-const elements = ref<ElementDto[]>([]);
-
-onMounted(
-  async () =>
-    (elements.value = await $element.get(projectId.value, {
-      orderBy: [{ isFavorite: 'asc' }, { name: 'asc' }],
-    }))
+const projectId = computed(() =>
+  $route.params.projectId ? String($route.params.projectId) : null
 );
+
+const getData = async () =>
+  $element.get(projectId.value!, {
+    orderBy: [{ isFavorite: 'asc' }, { name: 'asc' }],
+  });
 
 const cellDefinitions: CellDefinition<ElementDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },
@@ -50,7 +49,7 @@ const cellDefinitions: CellDefinition<ElementDto>[] = [
 </script>
 
 <template>
-  <BaseTable :cell-definitions="cellDefinitions" :data="elements" />
+  <BaseTable :cell-definitions="cellDefinitions" :get-data="getData" />
 </template>
 
 <style scoped lang="scss"></style>

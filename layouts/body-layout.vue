@@ -21,7 +21,7 @@ const rightAsideSlots = computed(() => {
 });
 
 const projectId = computed(() => {
-  return String($route.params.projectId);
+  return $route.params.projectId ? String($route.params.projectId) : null;
 });
 
 watch(projectId, (value) => $project.selectProject(value));

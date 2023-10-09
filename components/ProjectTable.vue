@@ -5,13 +5,12 @@ import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 import BaseTable from '~/components/BaseTable.vue';
 
 const $project = useProject();
-const projects = ref<ProjectDto[]>([]);
 
-onMounted(async () => {
-  projects.value = await $project.get({
+const getProjects = async () => {
+  return $project.get({
     orderBy: [{ isFavorite: 'asc' }, { title: 'asc' }],
   });
-});
+};
 
 const cellDefinitions: CellDefinition<ProjectDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },
@@ -36,7 +35,7 @@ const cellDefinitions: CellDefinition<ProjectDto>[] = [
 </script>
 
 <template>
-  <BaseTable :cell-definitions="cellDefinitions" :data="projects" />
+  <BaseTable :cell-definitions="cellDefinitions" :get-data="getProjects" />
 </template>
 
 <style scoped lang="scss"></style>

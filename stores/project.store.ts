@@ -26,6 +26,8 @@ export const useProject = defineStore('project', () => {
   const selectProject = async (id: string) => {
     clearSelected();
 
+    if (!id) return;
+
     selectedProject.value = await getOne(id);
   };
 
