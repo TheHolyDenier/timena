@@ -10,6 +10,7 @@ const props = defineProps({
   name: { type: String, required: true },
   type: { type: String as PropType<InputType>, default: 'text' },
   value: { type: [String, Number], default: '' },
+  pattern: { type: String, default: null },
 });
 
 const modelValue = ref(props.value ? props.value : '');
@@ -24,6 +25,7 @@ watch(modelValue, (value) => {
     <input
       :id="name"
       v-model="modelValue"
+      :pattern="pattern"
       :type="type || 'text'"
       class="input__element"
     />

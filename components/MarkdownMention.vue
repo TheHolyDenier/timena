@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { PropType } from '@vue/runtime-core';
+import { MentionModel } from '~/utils/interfaces/mention-model';
+
 const props = defineProps({
-  items: { type: Array, required: true },
+  items: { type: Array as PropType<MentionModel[]>, default: () => [] },
   command: { type: Function, required: true },
 });
 
@@ -54,10 +57,10 @@ const onKeyDown = ({ event }) => {
         class="item"
         :class="{ 'is-selected': index === selectedIndex }"
         v-for="(item, index) in items"
-        :key="index"
+        :key="item.id"
         @click="selectItem(index)"
       >
-        {{ item }}
+        {{ item.label }}
       </button>
     </template>
     <div class="item" v-else> No result </div>

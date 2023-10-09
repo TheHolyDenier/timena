@@ -13,4 +13,6 @@ export interface InputDefinition {
   isMultiple?: boolean;
 
   optionLoader?: (inputValue?: string) => Promise<OptionDefinition[]>;
+
+  pattern?: string;
 }

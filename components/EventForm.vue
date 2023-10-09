@@ -14,12 +14,14 @@ const props = defineProps({
   projectId: { type: String, required: true },
 });
 
+const timePattern = '[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}';
+
 const inputDefinitions: InputDefinition[] = [
   { name: 'title', label: 'Title' },
   { name: 'description', label: 'Description', type: 'markdown' },
   { name: 'cover', label: 'Cover' },
-  { name: 'startDate', label: 'Start date' },
-  { name: 'endDate', label: 'End date' },
+  { name: 'startDate', label: 'Start date', pattern: timePattern },
+  { name: 'endDate', label: 'End date', pattern: timePattern },
 ];
 
 const createEvent = async (createEvent: CreateEventDto) => {

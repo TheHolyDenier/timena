@@ -80,6 +80,7 @@ const formData = ref<FormData>(
         :name="inputDefinition.name"
         :type="inputDefinition.type"
         :value="formData[inputDefinition.name]"
+        :pattern="inputDefinition.pattern"
         class="form__child"
         @on:update="formData[inputDefinition.name] = $event"
       />
@@ -89,7 +90,8 @@ const formData = ref<FormData>(
       <BaseButton
         :loading="loading"
         :compact="compact"
-        @click="$emit('on:send', formData)"
+        type="submit"
+        @click.prevent="$emit('on:send', formData)"
       >
         Enviar
       </BaseButton>
