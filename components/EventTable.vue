@@ -3,6 +3,8 @@ import BaseTable from '~/components/BaseTable.vue';
 import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 import { useEvent } from '~/stores/event.store';
 import { EventDto } from '~/utils/models/event/event.dto';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
+import { cloneDeep } from 'lodash';
 
 const $event = useEvent();
 const $route = useRoute();
@@ -11,10 +13,12 @@ const projectId = computed(() =>
   $route.params.projectId ? String($route.params.projectId) : null
 );
 
-const getData = async () =>
-  $event.get(projectId.value!, {
-    orderBy: [{ startDate: 'asc' }, { title: 'asc' }],
-  });
+const getData = async (request: PrismaRequest) => {
+  const req = cloneDeep(request);
+  req.orderBy = [{ startDate: 'asc' }, { title: 'asc' }];
+
+  return $event.get(projectId.value!, req);
+};
 
 const cellDefinitions: CellDefinition<EventDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },

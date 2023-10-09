@@ -1,7 +1,7 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { useUser } from '~/stores/user.store';
 import { ApiResponse } from '~/utils/interfaces/api-response';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 import { SearchParameters } from 'ofetch';
 import { cloneDeep } from 'lodash';
 
@@ -10,14 +10,8 @@ export const useBaseService = <T, C = null, U = null>(
   CreateDto?: ClassConstructor<C>,
   UpdateDto?: ClassConstructor<U>
 ) => {
-  const parseRequest = (request: Request): SearchParameters => {
-    const parsed: SearchParameters = cloneDeep(request);
-
-    if (!request.page) parsed.page = 1;
-
-    if (!request.elementsPerPage) parsed.elementsPerPage = 10;
-
-    return parsed;
+  const parseRequest = (request: PrismaRequest): SearchParameters => {
+    return cloneDeep(request);
   };
 
   const create = CreateDto
@@ -64,7 +58,7 @@ export const useBaseService = <T, C = null, U = null>(
 
   const get = async (
     baseUrl: string,
-    request: Request = {}
+    request: PrismaRequest = {}
   ): Promise<ApiResponse<T>> => {
     const user = useUser();
 

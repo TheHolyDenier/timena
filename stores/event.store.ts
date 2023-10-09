@@ -2,7 +2,7 @@ import { ElementDto } from '~/utils/models/event/event.dto';
 import { api } from '~/plugins/di';
 import { CreateElementDto } from '~/utils/models/event/create-event.dto';
 import { UpdateElementDto } from '~/utils/models/event/update-event.dto';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export const useEvent = defineStore('event', () => {
   const loading = ref(false);
@@ -16,7 +16,7 @@ export const useEvent = defineStore('event', () => {
     return event;
   };
 
-  const get = async (eventId: string, request?: Request) => {
+  const get = async (eventId: string, request?: PrismaRequest) => {
     loading.value = true;
     const events = await api.event.get(eventId, request);
     loading.value = false;

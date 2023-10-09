@@ -3,7 +3,7 @@ import { OrderBy } from '~/utils/interfaces/order-by';
 import { Include } from '~/utils/interfaces/include';
 import { Select } from '~/utils/interfaces/select';
 
-export interface Request {
+export interface PrismaRequest {
   where?: Where;
   page?: number;
   elementsPerPage?: number;

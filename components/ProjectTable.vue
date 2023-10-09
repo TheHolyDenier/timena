@@ -3,13 +3,15 @@ import { ProjectDto } from '~/utils/models/project/project.dto';
 import { useProject } from '~/stores/project.store';
 import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 import BaseTable from '~/components/BaseTable.vue';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
+import { cloneDeep } from 'lodash';
 
 const $project = useProject();
 
-const getProjects = async () => {
-  return $project.get({
-    orderBy: [{ isFavorite: 'asc' }, { title: 'asc' }],
-  });
+const getProjects = async (request: PrismaRequest) => {
+  const req = cloneDeep(request);
+  req.orderBy = [{ isFavorite: 'asc' }, { title: 'asc' }];
+  return $project.get(req);
 };
 
 const cellDefinitions: CellDefinition<ProjectDto>[] = [

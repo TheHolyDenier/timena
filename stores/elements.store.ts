@@ -2,7 +2,7 @@ import { ElementDto } from '~/utils/models/element/element.dto';
 import { api } from '~/plugins/di';
 import { CreateElementDto } from '~/utils/models/element/create-element.dto';
 import { UpdateElementDto } from '~/utils/models/element/update-element.dto';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export const useElement = defineStore('element', () => {
   const loading = ref(false);
@@ -16,7 +16,7 @@ export const useElement = defineStore('element', () => {
     return element;
   };
 
-  const get = async (projectId: string, request?: Request) => {
+  const get = async (projectId: string, request?: PrismaRequest) => {
     if (!projectId) return null;
     loading.value = true;
     const elements = await api.element.get(projectId, request);

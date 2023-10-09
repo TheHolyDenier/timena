@@ -6,7 +6,7 @@ import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { prisma } from '~/server/api';
 import { ElementsManager } from '~/utils/manager/elements.manager';
 import { Project } from '@prisma/client';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export default defineEventHandler(async (event: H3Event) => {
   const project = await ProjectsManager.getParamAndFind(event);
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event: H3Event) => {
 
 const getElements = async (
   project: Project,
-  query: Request = {},
+  query: PrismaRequest = {},
   page?: number
 ) => {
   if (!query.where) query.where = {};

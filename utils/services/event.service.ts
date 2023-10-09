@@ -2,7 +2,7 @@ import { useBaseService } from '~/utils/services/base.service';
 import { EventDto } from '~/utils/models/event/event.dto';
 import { CreateEventDto } from '~/utils/models/event/create-event.dto';
 import { UpdateEventDto } from '~/utils/models/event/update-event.dto';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export const useEventService = () => {
   const $base = useBaseService<EventDto, CreateEventDto, UpdateEventDto>(
@@ -19,7 +19,7 @@ export const useEventService = () => {
     update: async (projectId: string, id: string, body: UpdateEventDto) =>
       $base.update!(`${baseUrl(projectId)}/${id}`, body),
 
-    get: async (projectId: string, request?: Request) =>
+    get: async (projectId: string, request?: PrismaRequest) =>
       $base.get(baseUrl(projectId), request),
 
     getOne: async (projectId: string, id: string) =>

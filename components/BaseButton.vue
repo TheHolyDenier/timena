@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { PropType } from '@vue/runtime-core';
+import { IconType } from '~/utils/types/icon.type';
+
 defineProps({
   compact: { type: Boolean },
   outline: { type: Boolean },
   flat: { type: Boolean },
   loading: { type: Boolean },
+  icon: { type: String as PropType<IconType> },
+  label: { type: String },
+  disabled: { type: Boolean },
 });
 </script>
 
@@ -11,10 +17,11 @@ defineProps({
   <button
     class="button"
     :class="{ 'button--compact': compact, outline, 'button--flat': flat }"
-    :disabled="loading"
+    :disabled="loading || disabled"
   >
     <BaseLoader v-if="loading" size="small" />
-    <slot></slot>
+    <BaseIcon v-if="icon" :icon="icon" />
+    <slot>{{ label }}</slot>
   </button>
 </template>
 
@@ -26,5 +33,6 @@ defineProps({
   display: inline-flex;
   align-items: center;
   gap: 0.3em;
+  height: 30px;
 }
 </style>

@@ -3,6 +3,8 @@ import { useElement } from '~/stores/elements.store';
 import { ElementDto } from '~/utils/models/element/element.dto';
 import BaseTable from '~/components/BaseTable.vue';
 import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
+import { cloneDeep } from 'lodash';
 
 const $element = useElement();
 const $route = useRoute();
@@ -11,10 +13,12 @@ const projectId = computed(() =>
   $route.params.projectId ? String($route.params.projectId) : null
 );
 
-const getData = async () =>
-  $element.get(projectId.value!, {
-    orderBy: [{ isFavorite: 'asc' }, { name: 'asc' }],
-  });
+const getData = async (request: PrismaRequest) => {
+  const req = cloneDeep(request);
+  req.orderBy = [{ isFavorite: 'asc' }, { name: 'asc' }];
+
+  return $element.get(projectId.value!, req);
+};
 
 const cellDefinitions: CellDefinition<ElementDto>[] = [
   { name: 'cover', title: 'Cover', type: 'image', field: 'cover' },

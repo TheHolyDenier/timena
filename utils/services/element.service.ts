@@ -2,7 +2,7 @@ import { useBaseService } from '~/utils/services/base.service';
 import { ElementDto } from '~/utils/models/element/element.dto';
 import { CreateElementDto } from '~/utils/models/element/create-element.dto';
 import { UpdateElementDto } from '~/utils/models/element/update-element.dto';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export const useElementService = () => {
   const $base = useBaseService<ElementDto, CreateElementDto, UpdateElementDto>(
@@ -19,7 +19,7 @@ export const useElementService = () => {
     update: async (projectId: string, id: string, body: UpdateElementDto) =>
       $base.update!(`${baseUrl(projectId)}/${id}`, body),
 
-    get: async (projectId: string, request?: Request) =>
+    get: async (projectId: string, request?: PrismaRequest) =>
       $base.get(baseUrl(projectId), request),
 
     getOne: async (projectId: string, id: string) =>

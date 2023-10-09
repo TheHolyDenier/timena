@@ -1,5 +1,5 @@
 import { H3Event } from 'h3';
-import { Request } from '~/utils/interfaces/request';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export default defineEventHandler((event: H3Event) => {
   const splitUrl = event.node.req.url?.split('?');
@@ -13,7 +13,7 @@ export default defineEventHandler((event: H3Event) => {
       return { key: split[0], value: split[1] };
     });
 
-  const query: Request = {};
+  const query: PrismaRequest = {};
 
   const orderBy = decodedQuery.filter((query) => query.key === 'orderBy');
   if (orderBy.length) {

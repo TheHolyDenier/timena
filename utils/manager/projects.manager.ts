@@ -2,8 +2,7 @@ import { Project, User } from '@prisma/client';
 import { getRouterParam, H3Event } from 'h3';
 import { prisma } from '~/server/api';
 import { notFoundError } from '~/errors/not-found.error';
-import { Request } from '~/utils/interfaces/request';
-import merge from 'lodash';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export class ProjectsManager {
   static getParamAndFind = async (event: H3Event): Promise<Project> => {
@@ -30,11 +29,11 @@ export class ProjectsManager {
     });
   };
 
-  static findMany = async (query: Request = {}) => {
+  static findMany = async (query: PrismaRequest = {}) => {
     return prisma.project.findMany(query);
   };
 
-  static count = async ({ where }: Request = {}): Promise<number> => {
+  static count = async ({ where }: PrismaRequest = {}): Promise<number> => {
     return prisma.project.count({ where });
   };
 }
