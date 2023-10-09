@@ -52,7 +52,7 @@ const editor = useEditor({
       HTMLAttributes: {
         class: 'editor__mention',
       },
-      suggestion: useMentionSuggestion(),
+      suggestion: useMentionSuggestion().get,
     }),
   ],
   onUpdate: ({ editor }) => {

@@ -7,9 +7,7 @@ import { ElementDto } from '~/utils/models/element/element.dto';
 import { MentionModel } from '~/utils/interfaces/mention-model';
 import { SuggestionOptions } from '@tiptap/suggestion';
 
-export const useMentionSuggestion = (): Partial<
-  SuggestionOptions<MentionModel>
-> => {
+export const useMentionSuggestion = () => {
   const $element = useElement();
   const $project = useProject();
 
@@ -75,7 +73,7 @@ export const useMentionSuggestion = (): Partial<
       return component.ref?.onKeyDown(props);
     };
 
-    const onExit = (props: Record<string, any>) => {
+    const onExit = () => {
       popup[0].destroy();
       component.destroy();
     };
@@ -88,5 +86,5 @@ export const useMentionSuggestion = (): Partial<
     };
   };
 
-  return { items, render };
+  return { get: { items, render } as Partial<SuggestionOptions<MentionModel>> };
 };
