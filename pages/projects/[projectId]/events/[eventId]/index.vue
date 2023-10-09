@@ -13,8 +13,8 @@ const $event = useEvent();
 
 const { selectedEvent, loading } = storeToRefs($event);
 
-const eventId = computed(() => $route.params.eventId);
-const projectId = computed(() => $route.params.projectId);
+const eventId = computed(() => String($route.params.eventId));
+const projectId = computed(() => String($route.params.projectId));
 
 const goBack: RouteLocationRaw = {
   name: 'projects-projectId',
@@ -22,11 +22,14 @@ const goBack: RouteLocationRaw = {
   query: { tabs: 'events' },
 };
 
-watch(eventId, (value) => {
-  $event.selectElement(projectId.value, value);
-});
-
-onMounted(() => $event.selectEvent(projectId.value, eventId.value));
+watch(
+  eventId,
+  (value) => {
+    if (!value) return;
+    $event.selectEvent(projectId.value!, value);
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

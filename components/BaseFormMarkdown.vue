@@ -10,8 +10,6 @@ import { History } from '@tiptap/extension-history';
 import { Italic } from '@tiptap/extension-italic';
 import { BulletList } from '@tiptap/extension-bullet-list';
 import { ListItem } from '@tiptap/extension-list-item';
-import { PropType } from '@vue/runtime-core';
-import { InputType } from '~/utils/types/input.type';
 import { Dropcursor } from '@tiptap/extension-dropcursor';
 import { Gapcursor } from '@tiptap/extension-gapcursor';
 import { InvisibleCharacters } from '@tiptap-pro/extension-invisible-characters';
@@ -24,7 +22,6 @@ const $emit = defineEmits<{
 
 const props = defineProps({
   name: { type: String, required: true },
-  type: { type: String as PropType<InputType>, default: 'text' },
   value: { type: String, default: '' },
 });
 

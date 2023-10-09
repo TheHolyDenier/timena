@@ -13,18 +13,22 @@ const $element = useElement();
 
 const { selectedElement, loading } = storeToRefs($element);
 
-const elementId = computed(() => $route.params.elementId);
-const projectId = computed(() => $route.params.projectId);
+const elementId = computed(() => String($route.params.elementId));
+const projectId = computed(() => String($route.params.projectId));
+
 const goBack: RouteLocationRaw = {
   name: 'projects-projectId',
   params: { projectId: projectId.value },
 };
 
-watch(elementId, (value) => {
-  $element.selectElement(projectId.value, value);
-});
-
-onMounted(() => $element.selectElement(projectId.value, elementId.value));
+watch(
+  elementId,
+  (value) => {
+    if (!value) return;
+    $element.selectElement(projectId.value!, value);
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

@@ -38,11 +38,11 @@ const createElement = async (createElement: CreateElementDto) => {
   });
 };
 
-const updateElement = async (createElement: UpdateElementDto) => {
+const updateElement = async (updateElement: UpdateElementDto) => {
   const result = await $element.update(
     props.projectId,
     props.model!.id,
-    createElement
+    updateElement
   );
   $router.push({
     name: 'projects-projectId-elements-elementId',

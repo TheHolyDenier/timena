@@ -12,21 +12,24 @@ const $route = useRoute();
 const $event = useEvent();
 const { selectedEvent, loading } = storeToRefs($event);
 
-const projectId = computed(() =>
-  $route.params.projectId ? String($route.params.projectId) : null
-);
-const eventId = computed(() =>
-  $route.params.eventId ? String($route.params.eventId) : null
-);
+const projectId = computed(() => String($route.params.projectId));
+const eventId = computed(() => String($route.params.eventId));
 
 const editRoute = computed(() => ({
   name: 'projects-projectId-events-eventId',
   params: { projectId: projectId.value, eventId: eventId.value },
 }));
 
-onMounted(() => $event.selectEvent(projectId.value, eventId.value));
-
-watch(eventId, (value) => $event.selectEvent(projectId.value, value));
+watch(
+  eventId,
+  (value) => {
+    if (!value) return;
+    $event.selectEvent(projectId.value, value);
+  },
+  {
+    immediate: true,
+  }
+);
 
 const remove = async () => {
   await $event.remove(projectId.value, eventId.value);
@@ -40,9 +43,7 @@ const remove = async () => {
 <template>
   <BodyLayout title="Edit event" :go-back="editRoute">
     <template #actions>
-      <BaseButton flat compact @click="remove">
-        <BaseIcon icon="delete" />Delete
-      </BaseButton>
+      <BaseButton compact flat icon="delete" label="Delete" @click="remove" />
     </template>
     <BaseLoader v-if="loading" />
     <EventForm

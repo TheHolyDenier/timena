@@ -8,13 +8,14 @@ definePageMeta({
 
 const $route = useRoute();
 
-const projectId = computed(() =>
-  $route.params.projectId ? String($route.params.projectId) : null
-);
+const projectId = computed(() => String($route.params.projectId));
 </script>
 
 <template>
-  <BodyLayout title="Add event" :go-back="{ name: 'projects-projectId' }">
+  <BodyLayout
+    title="Add event"
+    :go-back="{ name: 'projects-projectId', query: { tabs: 'events' } }"
+  >
     <EventForm :project-id="projectId" />
   </BodyLayout>
 </template>

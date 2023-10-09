@@ -32,11 +32,11 @@ const createEvent = async (createEvent: CreateEventDto) => {
   });
 };
 
-const updateEvent = async (createEvent: UpdateEventDto) => {
+const updateEvent = async (updateEvent: UpdateEventDto) => {
   const result = await $event.update(
     props.projectId,
     props.model!.id,
-    createEvent
+    updateEvent
   );
 
   $router.push({
