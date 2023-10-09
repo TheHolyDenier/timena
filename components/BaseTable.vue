@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { PropType } from '@vue/runtime-core';
-import { CellDefinition } from '~/utils/interfaces/cell-definition.interface';
 import BaseTableCell from '~/components/BaseTableCell.vue';
 import { BaseDto } from '~/utils/models/base.dto';
 import { ApiResponse } from '~/utils/interfaces/api-response';
@@ -11,7 +10,7 @@ const $route = useRoute();
 
 const props = defineProps({
   cellDefinitions: {
-    type: Array as PropType<CellDefinition<Partial<BaseDto>>[]>,
+    type: Array,
     default: () => [],
   },
   getData: {

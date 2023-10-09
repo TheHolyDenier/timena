@@ -63,7 +63,7 @@ const onKeyDown = ({ event }) => {
         {{ item.label }}
       </button>
     </template>
-    <div class="item" v-else> No result </div>
+    <div class="item" v-else>No result</div>
   </div>
 </template>
 

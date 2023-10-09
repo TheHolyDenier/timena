@@ -38,6 +38,7 @@ const updateEvent = async (createEvent: UpdateEventDto) => {
     props.model!.id,
     createEvent
   );
+
   $router.push({
     name: 'projects-projectId-events-eventId',
     params: { projectId: props.projectId, eventId: result.id },

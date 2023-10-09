@@ -50,7 +50,7 @@ const tabs: Tabs[] = [
                 Element
               </BaseButtonLink>
             </div>
-            <ElementTable :project-id="projectId" />
+            <ElementTable />
           </div>
         </template>
         <template #events>
