@@ -9,10 +9,7 @@ const projects = ref<ProjectDto[]>([]);
 
 onMounted(async () => {
   projects.value = await $project.get({
-    orderBy: [
-      { field: 'isFavorite', order: 'asc' },
-      { field: 'title', order: 'asc' },
-    ],
+    orderBy: [{ isFavorite: 'asc' }, { title: 'asc' }],
   });
 });
 

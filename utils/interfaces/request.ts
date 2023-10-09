@@ -10,4 +10,6 @@ export interface Request {
   orderBy?: OrderBy[];
   include?: Include;
   select?: Select;
+  skip?: number;
+  take?: number;
 }

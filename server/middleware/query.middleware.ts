@@ -1,10 +1,11 @@
 import { H3Event } from 'h3';
+import { Request } from '~/utils/interfaces/request';
 
 export default defineEventHandler((event: H3Event) => {
   const splitUrl = event.node.req.url?.split('?');
-  if (splitUrl.length < 2) return;
 
-  // const query = JSON.parse(splitUrl[1]);
+  if (splitUrl?.length < 2) return;
+
   const decodedQuery = decodeURIComponent(splitUrl[1])
     .split('&')
     .map((condition) => {
@@ -12,7 +13,7 @@ export default defineEventHandler((event: H3Event) => {
       return { key: split[0], value: split[1] };
     });
 
-  const query = {};
+  const query: Request = {};
 
   const orderBy = decodedQuery.filter((query) => query.key === 'orderBy');
   if (orderBy.length) {
@@ -37,6 +38,7 @@ export default defineEventHandler((event: H3Event) => {
   // // offset = (page - 1) * itemsPerPage + 1
   //
   event.context.query = query;
+  event.context.page = Number(page);
 });
 
 // function parseCondition(condition) {

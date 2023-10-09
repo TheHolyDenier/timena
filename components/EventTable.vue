@@ -13,10 +13,7 @@ const events = ref<EventDto[]>([]);
 onMounted(
   async () =>
     (events.value = await $event.get(projectId.value, {
-      orderBy: [
-        { field: 'startDate', order: 'asc' },
-        { field: 'title', order: 'asc' },
-      ],
+      orderBy: [{ startDate: 'asc' }, { title: 'asc' }],
     }))
 );
 

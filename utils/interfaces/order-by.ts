@@ -1,4 +1,3 @@
 export interface OrderBy {
-  field: string;
-  order: 'asc' | 'desc';
+  [key: string]: 'asc' | 'desc';
 }

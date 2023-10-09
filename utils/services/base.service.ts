@@ -3,6 +3,7 @@ import { useUser } from '~/stores/user.store';
 import { ApiResponse } from '~/utils/interfaces/api-response';
 import { Request } from '~/utils/interfaces/request';
 import { SearchParameters } from 'ofetch';
+import { cloneDeep } from 'lodash';
 
 export const useBaseService = <T, C = null, U = null>(
   Dto: ClassConstructor<T>,
@@ -10,14 +11,7 @@ export const useBaseService = <T, C = null, U = null>(
   UpdateDto?: ClassConstructor<U>
 ) => {
   const parseRequest = (request: Request): SearchParameters => {
-    const parsed: SearchParameters = {};
-
-    if (request.orderBy?.length) {
-      parsed.orderBy = [];
-      for (const orderBy of request.orderBy) {
-        parsed.orderBy.push({ [orderBy.field]: orderBy.order });
-      }
-    }
+    const parsed: SearchParameters = cloneDeep(request);
 
     if (!request.page) parsed.page = 1;
 

@@ -6,13 +6,14 @@ import { getStatusCode, StatusMessage } from '~/utils/enums/status-message';
 import { prisma } from '~/server/api';
 import { Project } from '@prisma/client';
 import { EventsManager } from '~/utils/manager/events.manager';
+import { Request } from '~/utils/interfaces/request';
 
 export default defineEventHandler(async (h3Event: H3Event) => {
   const project = await ProjectsManager.getParamAndFind(h3Event);
 
   switch (h3Event.context.method) {
     case ApiMethods.GET:
-      return getEvents(project, h3Event.context.query);
+      return getEvents(project, h3Event.context.query, h3Event.context.page);
     case ApiMethods.POST:
       return postEvent(h3Event, project);
     default:
@@ -20,11 +21,25 @@ export default defineEventHandler(async (h3Event: H3Event) => {
   }
 });
 
-const getEvents = async (project: Project, query) => {
+const getEvents = async (
+  project: Project,
+  query: Request = {},
+  page?: number
+) => {
+  if (!query.where) query.where = {};
+  query.where.projectId = project.id;
+
+  const [data, total] = await Promise.all([
+    EventsManager.findMany(query),
+    EventsManager.count(query),
+  ]);
+
   return {
     statusCode: getStatusCode(StatusMessage.OK),
     statusMessage: StatusMessage.OK,
-    data: await EventsManager.findMany(project.id, query),
+    data: data,
+    page: page,
+    total: total,
   };
 };
 
