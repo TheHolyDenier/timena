@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { PropType, ref, watch } from '@vue/runtime-core';
 import { InputType } from '~/utils/types/input.type';
-import { ELEMENT_TYPES } from '~/utils/models/element/ELEMENT_TYPES';
 import { OptionDefinition } from '~/utils/interfaces/option-definition.interface';
+import BaseFormSelectTags from '~/components/BaseFormSelectTags.vue';
+import BaseFormSelectOptions from '~/components/BaseFormSelectOptions.vue';
 
 const emit = defineEmits<{
   (e: 'on:update', value: string[]): void;
@@ -21,23 +22,25 @@ const props = defineProps({
   },
 });
 
-const modelValue = ref([]);
-const search = ref('');
+const modelValue = ref(props.value ? [props.value] : []);
+const search = ref(props.value && !props.isMultiple ? props.value : '');
 
 const optionsValues = ref<OptionDefinition[]>([]);
 
-const options = computed(() =>
+const options = computed<OptionDefinition[]>(() =>
   search.value === ''
     ? optionsValues.value
     : optionsValues.value.filter(
         (option) =>
           option.value === search.value ||
-          option.label.toLowerCase().includes(search.value.toLowerCase())
+          option.label
+            .toLowerCase()
+            .includes(String(search.value).toLowerCase())
       )
 );
 const displayOptions = ref(false);
 
-const optionsRef = ref<HTMLElement>(null);
+const optionsRef = ref<HTMLElement>();
 
 const optionAction = (optionValue: string) => {
   if (!props.isMultiple && modelValue.value.length) modelValue.value.length = 0;
@@ -46,6 +49,8 @@ const optionAction = (optionValue: string) => {
 
   if (index === -1) modelValue.value.push(optionValue);
   else modelValue.value.splice(index, 1);
+
+  if (!props.isMultiple) search.value = modelValue.value[0] || '';
 };
 
 const className = computed(() => `select--${props.name}`);
@@ -76,17 +81,14 @@ onBeforeUnmount(() => {
 
 <template>
   <div v-if="optionsValues" class="select">
-    <div class="select__tags">
-      <BaseTag
-        v-for="value of modelValue"
-        :key="value"
-        :label="value"
-        removable
-        @click="optionAction(value)"
-      />
-    </div>
+    <BaseFormSelectTags
+      v-if="isMultiple"
+      :tags="modelValue"
+      @on:remove="optionAction"
+    />
     <div class="select__container">
       <BaseFormInput
+        :value="search"
         :name="`select-${name}`"
         @on:update="search = String($event)"
         @click.stop="displayOptions = !displayOptions"
@@ -97,33 +99,18 @@ onBeforeUnmount(() => {
       >
         <BaseIcon icon="arrow_drop_down" />
       </div>
-      <div v-if="displayOptions" ref="optionsRef" class="select__options">
-        <div
-          class="select__option select__option--empty"
-          v-if="!options.length"
-        >
-          No options...
-        </div>
-        <div
-          v-for="option in options"
-          :key="option.value"
-          class="select__option"
-          :class="{
-            'select__option--selected': modelValue.includes(option.value),
-          }"
-          @click.stop="optionAction(option.value)"
-        >
-          <BaseIcon v-if="option.icon" :icon="option.icon" />
-          {{ option.label }}
-        </div>
-      </div>
+      <BaseFormSelectOptions
+        v-if="displayOptions"
+        ref="optionsRef"
+        :options="options"
+        :selected-options="modelValue"
+        @on:click="optionAction"
+      />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-@import 'assets/scss/global';
-
 .select {
   width: 100%;
   display: flex;
@@ -140,42 +127,6 @@ onBeforeUnmount(() => {
     top: 50%;
     transform: translate(0, -50%);
     width: auto;
-  }
-
-  &__tags {
-    display: flex;
-    gap: 0.3em;
-    padding-block: 0.3em;
-  }
-
-  &__options {
-    position: absolute;
-    background: white;
-    right: 0;
-    left: 0;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-
-  &__option {
-    padding: 1em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.3em;
-
-    &:hover {
-      background-color: $primary-neutral;
-    }
-
-    &--empty {
-      cursor: auto;
-      background-color: inherit;
-    }
-
-    &--selected {
-      background-color: rgba($primary-neutral, 0.2);
-    }
   }
 }
 </style>

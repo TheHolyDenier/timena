@@ -18,8 +18,6 @@ import { InvisibleCharacters } from '@tiptap-pro/extension-invisible-characters'
 import { Mention } from '@tiptap/extension-mention';
 import { useMentionSuggestion } from '~/composables/mention-suggestion';
 
-// TODO: https://tiptap.dev/api/nodes/mention
-
 const $emit = defineEmits<{
   (e: 'on:update', value: string | number | undefined): void;
 }>();

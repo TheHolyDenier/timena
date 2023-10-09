@@ -18,6 +18,13 @@ const modelValue = ref(props.value ? props.value : '');
 watch(modelValue, (value) => {
   emit('on:update', value);
 });
+
+watch(
+  () => props.value,
+  (newValue) => {
+    if (modelValue.value !== newValue) modelValue.value = newValue;
+  }
+);
 </script>
 
 <template>
