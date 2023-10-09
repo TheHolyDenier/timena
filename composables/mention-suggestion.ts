@@ -6,22 +6,30 @@ import { useProject } from '~/stores/project.store';
 import { ElementDto } from '~/utils/models/element/element.dto';
 import { MentionModel } from '~/utils/interfaces/mention-model';
 import { SuggestionOptions } from '@tiptap/suggestion';
+import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export const useMentionSuggestion = () => {
   const $element = useElement();
   const $project = useProject();
 
   const getElements = async (inputValue: string) => {
-    const elements = await $element.get($project.selectedProject!.id);
-    return (elements.data as ElementDto[])
-      ?.filter((element) =>
-        element.name!.toLowerCase().startsWith(inputValue.toLowerCase())
-      )
-      .map<MentionModel>((element) => ({
-        id: element.id,
-        label: element.name!,
-      }))
-      .slice(0, 5);
+    const request: PrismaRequest = {
+      orderBy: [{ isFavorite: 'asc' }, { name: 'asc' }],
+      page: 1,
+      elementsPerPage: 10,
+    };
+
+    if (inputValue) {
+      request.where = {
+        AND: [{ name: { contains: inputValue, mode: 'insensitive' } }],
+      };
+    }
+
+    const elements = await $element.get($project.selectedProject!.id, request);
+    return (elements.data as ElementDto[])?.map<MentionModel>((element) => ({
+      id: element.id,
+      label: element.name!,
+    }));
   };
 
   const items = async ({ query }: { query: string }) => getElements(query);
@@ -70,7 +78,9 @@ export const useMentionSuggestion = () => {
         return true;
       }
 
-      return component.ref?.onKeyDown(props);
+      return component?.ref?.onKeyDown
+        ? component?.ref?.onKeyDown(props)
+        : null;
     };
 
     const onExit = () => {

@@ -2,7 +2,7 @@ import { H3Event } from 'h3';
 import { PrismaRequest } from '~/utils/interfaces/prisma-request';
 
 export default defineEventHandler((event: H3Event) => {
-  const splitUrl = event.node.req.url?.split('?');
+  const splitUrl = event.node.req.url?.split('?') || [];
 
   if (splitUrl?.length < 2) return;
 
@@ -18,6 +18,14 @@ export default defineEventHandler((event: H3Event) => {
   const orderBy = decodedQuery.filter((query) => query.key === 'orderBy');
   if (orderBy.length) {
     query.orderBy = orderBy.map((element) => JSON.parse(element.value));
+  }
+
+  const where = decodedQuery.filter((query) => query.key === 'where');
+  if (where.length) {
+    query.where = {};
+    for (const condition of where) {
+      Object.assign(query.where, JSON.parse(condition.value));
+    }
   }
 
   const page = decodedQuery.find((element) => element.key === 'page')?.value;
